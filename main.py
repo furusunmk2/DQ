@@ -5,7 +5,7 @@ from field import Field
 from player import Player
 from monster import Monster
 from monsterlist import MonsterList
-from battle import Battle
+# from battle import Battle
 
 # Pythonの基本処理
 pygame.init()
@@ -36,8 +36,8 @@ def init_game_info():
     Game.monsters.append(Monster((1, 8), MonsterList.MON_NO_NIZI_NEZUMI))
     
     
-    # Ｋ－１４６Battleから）戦闘画面
-    Game.battle = Battle()
+    # # Ｋ－１４６Battleから）戦闘画面
+    # Game.battle = Battle()
 
 # 基本描画処理
 def basic_draw():

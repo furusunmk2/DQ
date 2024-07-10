@@ -17,7 +17,7 @@ class Game:
     SQ_LEN = 64                     # １スクエアの幅と高さ
     SQ_SIZE = (SQ_LEN, SQ_LEN)      # １スクエアのサイズ（幅、高さ）
     
-    START_FIELD = 1                 # 初期位置のマップNo
+    START_FIELD = 6                 # 初期位置のマップNo
     START_PLAYER_POS_X = 5          # プレイヤーの初期位置（横）
     START_PLAYER_POS_Y = 5          # プレイヤーの初期位置（縦）
 
