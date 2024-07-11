@@ -8,11 +8,11 @@ from enum import Enum
 class Game:
     
     # ========== クラス定数 ==========
-    MAP_WIDTH = 3                   # マップの横サイズ（フィールド数）
+    MAP_WIDTH = 4                   # マップの横サイズ（フィールド数）
     MAP_HEIGHT = 3                  # マップの縦サイズ（フィールド数）
     MAP_COUNT = MAP_WIDTH * MAP_HEIGHT  # マップ数
-    FIELD_WIDTH = 10                # 画面の横サイズ（スクエア数）
-    FIELD_HEIGHT = 10               # 画面の縦サイズ（スクエア数）
+    FIELD_WIDTH = 15                # 画面の横サイズ（スクエア数）
+    FIELD_HEIGHT = 15               # 画面の縦サイズ（スクエア数）
     CHIP_IN_FIELD = FIELD_WIDTH * FIELD_HEIGHT  # 画面のスクエア数
     SQ_LEN = 64                     # １スクエアの幅と高さ
     SQ_SIZE = (SQ_LEN, SQ_LEN)      # １スクエアのサイズ（幅、高さ）

@@ -10,7 +10,7 @@ import chip
 # プレイヤークラス
 class Player(Character):
     # 移動不能チップの番号リスト（チップの番号と合わせること）
-    UNMOVABLE_CHIP_LIST = [3,7,10]
+    UNMOVABLE_CHIP_LIST = [3,7,10,12,14,4]
     FIELD_DAMEGE_LIST = [4]
     MONSTER_UNMOVABLE_CHIP_LIST = [0,2,3]
     TAKARABAKO_LIST=[5]

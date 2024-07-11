@@ -29,7 +29,8 @@ class Chip(Square):
                 Game.read_image_for_square('image/chip10.png'),
                 Game.read_image_for_square('image/chip11.png'),
                 Game.read_image_for_square('image/chip12.png'),
-                Game.read_image_for_square('image/chip13.png')
+                Game.read_image_for_square('image/chip13.png'),
+                Game.read_image_for_square('image/chip14.png')
             )
     
     # チップ番号設定

@@ -9,7 +9,7 @@ from monsterlist import MonsterList
 
 # Pythonの基本処理
 pygame.init()
-Game.surface = pygame.display.set_mode([960, 640])
+Game.surface = pygame.display.set_mode([1280, 960])
 clock = pygame.time.Clock()
 pygame.display.set_caption('*** Sample RPG ***')
 
@@ -55,28 +55,28 @@ def basic_draw():
     level_str = str(Game.player.level).rjust(5)
     level_render = smallfont.render(f'Level:{level_str}',
                                     True, (255, 255, 255))
-    Game.surface.blit(level_render, (680, 30))
+    Game.surface.blit(level_render, (1000, 30))
     # Ｄ－５２）HPの描画（左空白埋めで５桁）
     hp_str = str(Game.player.hp).rjust(5)
     hp_render = smallfont.render(f'   HP:{hp_str}',
                                     True, (255, 255, 255))
-    Game.surface.blit(hp_render, (680, 80))
+    Game.surface.blit(hp_render, (1000, 80))
     #アイテム表示
     if Player.item_flg3 == 1:
         item1 = item_font.render(f'☆にじいろの粉',
                                         True, (255, 255, 255))
-        Game.surface.blit(item1, (680, 130))
+        Game.surface.blit(item1, (1000, 130))
         Player.end_flg = 1
     if Player.item_flg2 == 1:
         item1 = item_font.render(f'☆ひみつの鍵',
                                         True, (255, 255, 255))
-        Game.surface.blit(item1, (680, 180))
+        Game.surface.blit(item1, (1000, 180))
         Player.kagi_flg = 1
     
     if Player.item_flg1 == 1:
         item1 = item_font.render(f'☆まほうの靴',
                                         True, (255, 255, 255))
-        Game.surface.blit(item1, (680, 230))
+        Game.surface.blit(item1, (1000, 230))
         Player.UNMOVABLE_CHIP_LIST = [2,7]
 
 # メイン処理
