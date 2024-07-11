@@ -52,18 +52,18 @@ class MonsterList:
     # 戦闘時の画像ファイル
     # 戦闘時の画像サイズ
     
-    # モンスター１
-    MONSTER_LADYBUG = (
-        'Lady Bug',
-        (Game.read_image_for_square('image/enemy2.png'),
-        Game.read_image_for_square('image/enemy2.png')),
+    # オブジェクト
+    bubu = (
+        'car',
+        (Game.read_image_for_square('image/bubu.png'),
+        Game.read_image_for_square('image/bubu.png')),
         5,
-        20,
+        100000,
         10,
-        [3],
+        [14,16],
         1,
         25,
-        'image/enemy2.png',
+        'image/bubu.png',
         (285//3, 320//3)
     )
 
@@ -113,7 +113,7 @@ class MonsterList:
 
     # モンスターリスト
     MONSTER_LIST = (
-        MONSTER_LADYBUG,
+        bubu,
         MONSTER_BIRD,
         MONSTER_DOKINCHAN,
         MONSTER_NIZI_NEZUMI
