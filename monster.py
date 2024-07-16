@@ -53,16 +53,24 @@ class Monster(Character):
     def check_map_move(self, posx, posy, dx, dy):
         # 右マップへ移動してしまう（一番右＋dxが正）
         if posx == Game.FIELD_WIDTH - 1 and dx > 0:
-            return False
+            self.set_pos(-100, -100)
+            self.set_dpos(0, 0)
+            return
         # 左マップへ移動（一番左より左）
         if posx < 0:
-            return False
+            self.set_pos(-100, -100)
+            self.set_dpos(0, 0)
+            return
         # 下マップへ移動（一番下＋dyが正）
         if posy == Game.FIELD_HEIGHT - 1 and dy > 0:
-            return False
+            self.set_pos(-100, -100)
+            self.set_dpos(0, 0)
+            return
         # 上マップへ移動（一番上より上）
         if posy < 0:
-            return False
+            self.set_pos(-100, -100)
+            self.set_dpos(0, 0)
+            return
         return True
     
     # １フレームごとにする画像・処理
@@ -114,11 +122,11 @@ class Monster(Character):
         monster_rect = self.get_rect()
         player_rect = Game.player.get_rect()
         # Ｊ－１３３）重なった場合
-        if monster_rect.colliderect(player_rect):
-            # Ｊ－１３４）モンスターを画面外に
-            # （画面外に設定すると、移動チェックで出てこれなくなる）
-            self.set_pos(-100, -100)
-            self.set_dpos(0, 0)
+        # if monster_rect.colliderect(player_rect):
+        #     # Ｊ－１３４）モンスターを画面外に
+        #     # （画面外に設定すると、移動チェックで出てこれなくなる）
+        #     self.set_pos(-100, -100)
+        #     self.set_dpos(0, 0)
             # # Ｋ－１３７最初）戦闘フェイズにする
             # Game.phase = Phase.IN_BATTLE
             # # Ｋ－１３８）戦闘処理の初期化

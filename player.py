@@ -10,7 +10,7 @@ import chip
 # プレイヤークラス
 class Player(Character):
     # 移動不能チップの番号リスト（チップの番号と合わせること）
-    UNMOVABLE_CHIP_LIST = [3,7,10,12,14,4]
+    UNMOVABLE_CHIP_LIST = [1,3,7,10,12,14,4,18,19,20,21,22,23,25,30,31,32,33,40,41,42,43]
     FIELD_DAMEGE_LIST = [4]
     MONSTER_UNMOVABLE_CHIP_LIST = [0,2,3]
     TAKARABAKO_LIST=[5]
@@ -117,15 +117,15 @@ class Player(Character):
                         pygame.mixer.music.load('game_over.mp3')   #BGMをロード
 
                         pygame.mixer.music.play(-1)
-            if not self.check_chara_move(posx, posy, dx, dy, Player.TAKARABAKO_LIST):
+            # if not self.check_chara_move(posx, posy, dx, dy, Player.TAKARABAKO_LIST):
 
-                field.Field.MAP2[3][8] = 0
-                Player.MAP2_flg = 1
-                Player.item_flg1=1
-            if not self.check_chara_move(posx, posy, dx, dy, Player.OTOSHIMONO_LIST):
-                field.Field.MAP5[8][6] = 0
-                Player.MAP5_flg = 1
-                Player.item_flg2=1
+            #     field.Field.MAP2[3][8] = 0
+            #     Player.MAP2_flg = 1
+            #     Player.item_flg1=1
+            # if not self.check_chara_move(posx, posy, dx, dy, Player.OTOSHIMONO_LIST):
+            #     field.Field.MAP5[8][6] = 0
+            #     Player.MAP5_flg = 1
+            #     Player.item_flg2=1
             if Player.kagi_flg==1:
                 if not self.check_chara_move(posx, posy, dx, dy, Player.DOOR_LIST):
                     field.Field.MAP8[4][1] = 0
