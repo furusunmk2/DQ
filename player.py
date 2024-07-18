@@ -5,24 +5,27 @@ import pygame
 from pygame.locals import Rect
 import field
 import chip
+import monster
+import selif
+import time
+import pygame
+from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, K_SPACE, K_RETURN
 
 
+# Pygameの初期化
+pygame.init()
+selif_font = pygame.font.Font('C:/Windows/Fonts/meiryo.ttc', 24)
 # プレイヤークラス
 class Player(Character):
     # 移動不能チップの番号リスト（チップの番号と合わせること）
     UNMOVABLE_CHIP_LIST = [1,3,7,10,12,14,4,18,19,20,21,22,23,25,30,31,32,33,40,41,42,43]
     FIELD_DAMEGE_LIST = [4]
     MONSTER_UNMOVABLE_CHIP_LIST = [0,2,3]
-    TAKARABAKO_LIST=[5]
-    OTOSHIMONO_LIST=[8]
-    DOOR_LIST=[7]
-    END_LIST=[6]
-    
-    
-    
-    
-    
-    
+    TAKARABAKO_LIST = [5]
+    OTOSHIMONO_LIST = [8]
+    DOOR_LIST = [7]
+    END_LIST = [6]
+
     # 初期レベル
     PLAYER_LV_1ST = 1
     # 初期ヒットポイント
@@ -30,13 +33,19 @@ class Player(Character):
         PLAYER_HP_1ST = 13
     else:
         PLAYER_HP_1ST = 10
-    MAP2_flg=0
-    MAP5_flg=0
-    MAP8_flg=0
-    doku_flg=0
+
+    epi_flg = 0
+    start_flg = 0
+    event_flg = 0
+    end_flg = 0
+    selif_flg = 0
+    MAP2_flg = 0
+    MAP5_flg = 0
+    MAP8_flg = 0
+    doku_flg = 0
     takarabako_flg = 0
     otoshimono_flg = 0
-    door_flg=0
+    door_flg = 0
     item_flg1 = 0
     item_flg2 = 0
     item_flg3 = 0
@@ -45,7 +54,7 @@ class Player(Character):
     mapnumber = 1
     MAP8_flg2 = 0
     end_flg = 0
-    # コンストラクタ
+    
     def __init__(self):
         # Ｃ－３８Characterから）親クラスのコンストラクタを呼び出し
         super().__init__()
@@ -60,7 +69,7 @@ class Player(Character):
                      Game.read_image_for_square('image/hero2.png'))
         # Ｃ－４３mainへ）画像を設定（親クラスの関数）
         self.set_image_list(pl_images)
-        
+
     # １フレームごとにする画像・処理
     def frame_process_img(self):
         # === 上下左右キーが押されている場合にキャラを移動 ===
@@ -69,23 +78,26 @@ class Player(Character):
         posx, posy = self.get_pos()
         dx, dy = self.get_dpos()
 
-        # Ｅ－５８）それぞれのキーに合わせて、移動後のずれ位置を設定
+        #浜辺のフラグ（epi_flg）
+        if self.epi_flg == 1 :
+            field.Field.MAP5[5][6]=2
+            field.Field.MAP5[5][7]=2
+            field.Field.MAP5[5][8]=2
+
+        #ダメージ床
         if Game.on_downkey():
             dy += Character.MOVE_STEP
             self.doku_flg += 1
         elif Game.on_upkey():
             dy -= Character.MOVE_STEP
             self.doku_flg += 1
-
         elif Game.on_rightkey():
             dx += Character.MOVE_STEP
             self.doku_flg += 1
-
         elif Game.on_leftkey():
             dx -= Character.MOVE_STEP
             self.doku_flg += 1
- 
-        
+
         # Ｅ－５９）ずれ位置の加算／減算後の値で、プレイヤーの位置を計算
         posx, posy, dx, dy = self.calc_chara_pos(posx, posy, dx, dy)
         
@@ -94,16 +106,13 @@ class Player(Character):
         
         # Ｇ－９３Characterから）マップを変更していない場合
         if not is_changed:
-
             # Ｇ－９３）移動可能チェックで移動可能の場合
             if self.check_chara_move(posx, posy, dx, dy, Player.UNMOVABLE_CHIP_LIST):
                 # Ｇ－９４）移動する（移動不可なら位置を変更しない）
                 self.set_pos(posx, posy)
                 self.set_dpos(dx, dy)
-            if not self.check_chara_move_damege(posx, posy, dx, dy,Player.FIELD_DAMEGE_LIST):
-
-                print(self.doku_flg)# プレイヤーのHPを減らす
-                
+            if not self.check_chara_move_damege(posx, posy, dx, dy, Player.FIELD_DAMEGE_LIST):
+                print(self.doku_flg) # プレイヤーのHPを減らす
                 if self.doku_flg > 10:
                     print(1234567890)
                     se = pygame.mixer.Sound("doku.mp3")
@@ -115,35 +124,36 @@ class Player(Character):
                         Game.phase = Phase.GAME_OVER
                         pygame.mixer.init()
                         pygame.mixer.music.load('game_over.mp3')   #BGMをロード
-
                         pygame.mixer.music.play(-1)
-            # if not self.check_chara_move(posx, posy, dx, dy, Player.TAKARABAKO_LIST):
 
-            #     field.Field.MAP2[3][8] = 0
-            #     Player.MAP2_flg = 1
-            #     Player.item_flg1=1
-            # if not self.check_chara_move(posx, posy, dx, dy, Player.OTOSHIMONO_LIST):
-            #     field.Field.MAP5[8][6] = 0
-            #     Player.MAP5_flg = 1
-            #     Player.item_flg2=1
-            if Player.kagi_flg==1:
+            if Player.kagi_flg == 1:
                 if not self.check_chara_move(posx, posy, dx, dy, Player.DOOR_LIST):
                     field.Field.MAP8[4][1] = 0
                     field.Field.MAP8[5][1] = 0
                     Player.MAP8_flg = 1 
-                    Player.item_flg3=1
-            if Player.end_flg==1:
+                    Player.item_flg3 = 1
+            if Player.end_flg == 1:
                 if not self.check_chara_move(posx, posy, dx, dy, Player.END_LIST):
                     field.Field.MAP8[4][5] = 9
                     Player.MAP8_flg2 = 1 
                     se = pygame.mixer.Sound("kaifuku.mp3")
                     se.play()
                     Game.phase = Phase.GAME_CLEAR
-                    
-                    
-
- 
-                    
+        # コリジョン関連
+            for mon in Game.monsters:  # 全てのモンスターインスタンスを確認
+                if mon.coli_flg > 0:  # coli_flgが設定されているか確認
+                    if self.selif_flg ==1:
+                        Game.surface.blit(selif_font.render(selif.list[mon.coli_flg][0],
+                                                                True, (255, 255, 255)), (1000, 230))   
+                        if Game.on_enterkey_released():
+                            self.selif_flg = 0 
+                        
+                    if Game.on_enterkey_released():
+                        self.selif_flg += 1
+                        
+                        
+                   
+    # コンストラクタ  
         # Ｇ－９５最後）マップを変更した場合は移動可能に関わらず移動
         else:
             # Ｅ－６０最後）加算後の値で、プレイヤーの位置を計算

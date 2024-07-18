@@ -5,10 +5,9 @@ from monsterlist import MonsterList
 
 # モンスタークラス
 class Monster(Character):
-
     # 移動方向リスト
     MOVE_DIR_LIST = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    
+
     # コンストラクタ
     def __init__(self, pos, monster_no):
         # Ｈ－９６最初）親クラスのコンストラクタを呼び出し
@@ -23,7 +22,8 @@ class Monster(Character):
         self.move_x, self.move_y = 0, 0
         # Ｈ－１０１下へ）残り移動回数
         self.remain_move_time = 0
-        
+        # コリジョンふらぐ
+        self.coli_flg = 0
         # ===== MonsterList クラスから、モンスターの情報を取得する =====
         # モンスターの画像を作成＆設定
         mon_images = MonsterList.get_monster_image_list(monster_no)
@@ -72,7 +72,7 @@ class Monster(Character):
             self.set_dpos(0, 0)
             return
         return True
-    
+
     # １フレームごとにする画像・処理
     def frame_process_img(self):
         # Ｉ－１０６最初）移動中でない場合
@@ -93,17 +93,26 @@ class Monster(Character):
                 # Ｉ－１１３）移動方向に仮移動
                 dx += Character.MOVE_STEP * self.move_x
                 dy += Character.MOVE_STEP * self.move_y
-                # Ｉ－１１４）加算後の値で、位置を計算
-                posx, posy, dx, dy = self.calc_chara_pos(posx, posy, dx, dy)
-                # Ｉ－１１５）マップ移動チェックで移動可能な場合
-                # ※Monsterクラスのマップ移動チェックは用意済み
-                # Playerと同様だが、マップ移動してしまう場合は移動不可としている
-                if self.check_map_move(posx, posy, dx, dy):
-                    # Ｉ－１１６）移動可能チェックで移動可能の場合
-                    if self.check_chara_move(posx, posy, dx, dy, self.unmovable_chips):
-                        # Ｉ－１１７）移動後の位置を設定する（移動不可なら位置を変更しない）
-                        self.set_pos(posx, posy)
-                        self.set_dpos(dx, dy)
+                # Ｊ－１３２Fieldから）モンスターとプレイヤーの四角を取得
+                monster_rect = self.get_rect()
+                player_rect = Game.player.get_rect()
+                # Ｊ－１３３）重なった場合
+                if monster_rect.colliderect(player_rect):
+                    self.coli_flg = self.monster_no
+                    return
+                else:
+                    self.coli_flg = 0
+                    # Ｉ－１１４）加算後の値で、位置を計算
+                    posx, posy, dx, dy = self.calc_chara_pos(posx, posy, dx, dy)
+                    # Ｉ－１１５）マップ移動チェックで移動可能な場合
+                    # ※Monsterクラスのマップ移動チェックは用意済み
+                    # Playerと同様だが、マップ移動してしまう場合は移動不可としている
+                    if self.check_map_move(posx, posy, dx, dy):
+                        # Ｉ－１１６）移動可能チェックで移動可能の場合
+                        if self.check_chara_move(posx, posy, dx, dy, self.unmovable_chips):
+                            # Ｉ－１１７）移動後の位置を設定する（移動不可なら位置を変更しない）
+                            self.set_pos(posx, posy)
+                            self.set_dpos(dx, dy)
 
                 # Ｉ－１１８）残り移動回数を１減算
                 self.remain_move_time -= 1
@@ -122,7 +131,10 @@ class Monster(Character):
         monster_rect = self.get_rect()
         player_rect = Game.player.get_rect()
         # Ｊ－１３３）重なった場合
-        # if monster_rect.colliderect(player_rect):
+        if monster_rect.colliderect(player_rect):
+            self.move_x, self.move_y = 0, 0
+            self.coli_flg = self.monster_no
+            
         #     # Ｊ－１３４）モンスターを画面外に
         #     # （画面外に設定すると、移動チェックで出てこれなくなる）
         #     self.set_pos(-100, -100)

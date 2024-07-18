@@ -80,6 +80,12 @@ class Game:
         return K_RETURN in Game.keymap
     # クラスメソッド：キー情報クリア処理
     @classmethod
+    def on_enterkey_released(cls):
+        for event in pygame.event.get():
+            if event.type == pygame.KEYUP and event.key == K_RETURN:
+                return True
+        return False
+    @classmethod
     def clear_keymap(cls):
         Game.keymap.clear
 
