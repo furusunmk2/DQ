@@ -135,6 +135,7 @@ class Player(Character):
                     elif Game.on_enterkey() and not self.enter_key_pressed:
                         self.selif_flg += 1
                         self.enter_key_pressed = True
+                
                 if not Game.on_enterkey():
                     self.enter_key_pressed = False
         else:

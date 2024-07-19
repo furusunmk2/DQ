@@ -42,7 +42,7 @@ class Chip(Square):
                 Game.read_image_for_square('image/chip23.png'),
                 Game.read_image_for_square('image/chip17.png'),
                 Game.read_image_for_square('image/chip25.png'),
-                Game.read_image_for_square('image/chip16.png'),
+                Game.read_image_for_square('image/chip26.png'),
                 Game.read_image_for_square('image/chip17.png'),
                 Game.read_image_for_square('image/chip17.png'),
                 Game.read_image_for_square('image/chip17.png'),

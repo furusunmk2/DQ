@@ -7,6 +7,7 @@ class MonsterList:
     MON_NO_BIRD = 1
     MON_NO_DOKINCHAN = 2
     MON_NO_NIZI_NEZUMI = 3
+    MON_NO_GIRL = 4
     
     # モンスター情報取得関数各種
     @classmethod
@@ -110,11 +111,24 @@ class MonsterList:
         #(440, 540)
         (440//3, 540//3)
     )
-
+    girl = (
+        'girl',
+        (Game.read_image_for_square('image/girl.png'),
+        Game.read_image_for_square('image/girl.png')),
+        5,
+        100,
+        5,
+        [0,1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
+        1,
+        25,
+        'image/girl.png',
+        (285//3, 320//3)
+    )
     # モンスターリスト
     MONSTER_LIST = (
         bubu,
         MONSTER_BIRD,
         MONSTER_DOKINCHAN,
-        MONSTER_NIZI_NEZUMI
+        MONSTER_NIZI_NEZUMI,
+        girl
     )

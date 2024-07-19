@@ -34,8 +34,12 @@ def init_game_info():
     Game.monsters.append(Monster((2, 8), MonsterList.MON_NO_BIRD))
     Game.monsters.append(Monster((1, 1), MonsterList.MON_NO_DOKINCHAN))
     Game.monsters.append(Monster((1, 8), MonsterList.MON_NO_NIZI_NEZUMI))
-    
-    
+    Game.monsters.append(Monster((1, 7), MonsterList.MON_NO_GIRL))
+    Game.monsters.append(Monster((8, 1), MonsterList.MON_NO_LADYBUG))
+    Game.monsters.append(Monster((2, 8), MonsterList.MON_NO_BIRD))
+    Game.monsters.append(Monster((1, 1), MonsterList.MON_NO_DOKINCHAN))
+    Game.monsters.append(Monster((1, 8), MonsterList.MON_NO_NIZI_NEZUMI))
+    Game.monsters.append(Monster((1, 7), MonsterList.MON_NO_GIRL))
     # # Ｋ－１４６Battleから）戦闘画面
     # Game.battle = Battle()
 
