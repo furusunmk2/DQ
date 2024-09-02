@@ -110,7 +110,7 @@ class Character(Square):
         # Ｇ－９２Playerへ）フィールドクラスのチェックを実施し、その結果を戻り値に設定
         return Game.field.check_filed_damege(check_pos_list, filed_damege_list)
     
-    def check_chara_takarabako(self, posx, posy, dx, dy,filed_takarabako_list):
+    def check_chara_epi(self, posx, posy, dx, dy,filed_epi_list):
         # Ｇ－８７Fieldから）チェック位置リスト
         check_pos_list = []
         # Ｇ－８８）チェック対象に、移動先のposx, posyを追加
@@ -127,4 +127,4 @@ class Character(Square):
         
         
         # Ｇ－９２Playerへ）フィールドクラスのチェックを実施し、その結果を戻り値に設定
-        return Game.field.check_filed_damege(check_pos_list, filed_takarabako_list)
+        return Game.field.check_filed_damege(check_pos_list, filed_epi_list)

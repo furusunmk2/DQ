@@ -30,7 +30,7 @@ class Game:
 
     field = None            # フィールド
     player = None           # プレイヤー
-    monsters = None         # モンスター
+    charas = None         # モンスター
     battle = None           # 戦闘画面
     
     # クラスメソッド：拡大縮小付き画像読み込み
