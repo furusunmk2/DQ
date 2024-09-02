@@ -183,14 +183,9 @@ def main():
                     Game.field.read_map_info()
                     Game.field.draw()
 
-            if Player.TSUNAMI_flg == 1:
-                if Player.TOUBOKU_flg == 1:
-                    if Game.field.map_no == 1:
-                        Game.field.map_no = 1
-                        Game.field.new_field = Field.MAP_LIST[1]
-                        Game.field.read_map_info()
-                        Game.field.draw()
-                        pygame.display.updata()
+            if Player.TOUBOKU_flg == 1:
+                pygame.display.update()
+                Player.TOUBOKU_flg = 0
 
             if  Player.MAP8_flg == 1:
                 Game.field.map_no = 8
