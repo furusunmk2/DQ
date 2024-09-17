@@ -43,23 +43,31 @@ def init_game_info():
     Game.charas.append(Chara((0, 0), CharaList.CHA_NO_MAN))
     Game.charas.append(Chara((0, 0), CharaList.CHA_NO_WOMAN))
     Game.charas.append(Chara((0, 0), CharaList.CHA_NO_CAR))
+
     
     for m_no,chara in enumerate(Game.charas):                  
             # Ｊ－１２７）マスのピッタリの位置に配置する
             
             if Game.field.map_no ==  4:
-                if m_no == 1 or m_no == 2 or m_no == 3 or m_no == 4 or m_no == 5:
+                if m_no == 0 or m_no == 1 or m_no == 2 or m_no == 3 or m_no == 4:
                     continue
                 if Player.QUAKE_flg == 1:
                     continue
             if Game.field.map_no ==  5 and Player.QUAKE_flg == 0:
-                if m_no == 4  or m_no == 5 or m_no ==6 or m_no == 7:
-                    continue 
+                if m_no == 3  or m_no == 4 or m_no ==5 or m_no == 6:
+                    continue
+                
+            if not Game.field.map_no ==  2:
+                if m_no == 8 or m_no == 9 or m_no == 10 or m_no ==11 or m_no == 12 or m_no == 13 or m_no == 14 or m_no == 15 or m_no ==16 or m_no == 17:
+                    continue
                
             if Game.field.map_no ==  6:
-                if m_no == 1 or m_no == 2 or m_no == 3 or m_no ==6 or m_no == 7:
+                if m_no == 0 or m_no == 1 or m_no == 2 or m_no ==5 or m_no == 6:
                     continue
                 if Player.QUAKE_flg == 1:
+                    continue
+            if not Game.field.map_no == 5:
+                if Game.field.QUAKE == 2:
                     continue
             dx, dy = 0, 0
             # Ｊ－１２８）配置できるまでループする
@@ -84,39 +92,198 @@ def basic_draw():
     # Ａ－２７最後）フィールドの描画
     Game.field.draw()
     # 出現キャラ操作（fieldも同様に）
-    if Player.QUAKE == 1:
-        if not Game.field.map_no ==4:
-                for i in CharaList.CHARA_LIST:
-                    i[2] = 1
-                    i[5] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]
-                    Game.charas = []
-                    Game.charas.append(Chara((5, 3), CharaList.CHA_NO_FATHER))
-                    Game.charas.append(Chara((6, 3), CharaList.CHA_NO_MOTHER))
-                    Game.charas.append(Chara((7, 3), CharaList.CHA_NO_DAUGHTER))
-                    Game.charas.append(Chara((4, 2), CharaList.CHA_NO_BOY))
-                    Game.charas.append(Chara((5, 2), CharaList.CHA_NO_GIRL))
-                    Game.charas.append(Chara((6, 2), CharaList.CHA_NO_MAN))
-                    Game.charas.append(Chara((7, 2), CharaList.CHA_NO_WOMAN))
-                    Game.charas.append(Chara((0, 0), CharaList.CHA_NO_CAR))
-                    Player.QUAKE = 0
+    
+    if Game.field.QUAKE == 1:
+        if Game.field.map_no ==5:
+                    for i in CharaList.CHARA_LIST:
+                        Game.charas = []
+                        if i == 0 or i == 1 or i == 2 or i == 3 or i == 4: 
+                            i[2] = 1
+                            i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78,  80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+                
+                    Game.charas.append(Chara((4, 1), CharaList.CHA_NO_FATHER))
+                    Game.charas.append(Chara((5, 1), CharaList.CHA_NO_MOTHER))
+                    Game.charas.append(Chara((6, 1), CharaList.CHA_NO_DAUGHTER))
+                    Game.charas.append(Chara((4, 1), CharaList.CHA_NO_BOY))
+                    Game.charas.append(Chara((5, 1), CharaList.CHA_NO_GIRL))
+                    Game.charas.append(Chara((7, 7), CharaList.CHA_NO_MAN))
+                    Game.charas.append(Chara((7, 7), CharaList.CHA_NO_WOMAN))        
+                    Game.field.QUAKE = 2
+                    print(Game.field.QUAKE)
+    if Game.field.QUAKE == 2:
+            if  Game.field.map_no ==1:
+                    for i in CharaList.CHARA_LIST:
+                        Game.charas = []
+                        if i == 0 or i == 1 or i == 2 or i == 3 or i == 4: 
+                            i[2] = 1
+                            i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78,  80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+                
+                    Game.charas.append(Chara((8, 7), CharaList.CHA_NO_FATHER))
+                    Game.charas.append(Chara((10, 6), CharaList.CHA_NO_MOTHER))
+                    Game.charas.append(Chara((10, 7), CharaList.CHA_NO_DAUGHTER))
+                    Game.charas.append(Chara((13, 7), CharaList.CHA_NO_BOY))
+                    Game.charas.append(Chara((13, 6), CharaList.CHA_NO_GIRL))
+                    Game.charas.append(Chara((7, 7), CharaList.CHA_NO_MAN))
+                    Game.charas.append(Chara((7, 6), CharaList.CHA_NO_WOMAN))
+                    Game.field.QUAKE = 3
+                    print(Game.field.QUAKE)
 
+    if Game.field.QUAKE == 3:  
+        if Game.field.map_no ==2:
+                for i in CharaList.CHARA_LIST:
+                    if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
+                        i[2] = 1
+                        i[5] = []
+                        i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+                Game.charas = []
+                Game.charas.append(Chara((8, 7), CharaList.CHA_NO_FATHER))
+                Game.charas.append(Chara((10, 6), CharaList.CHA_NO_MOTHER))
+                Game.charas.append(Chara((10, 7), CharaList.CHA_NO_DAUGHTER))
+                Game.charas.append(Chara((12, 7), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((7, 7), CharaList.CHA_NO_MAN))
+                Game.charas.append(Chara((7, 6), CharaList.CHA_NO_WOMAN))
+                Game.charas.append(Chara((12, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 13), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 12), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((11, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
+                Player.MAP2_flg =1
+                Game.field.QUAKE = 4
+                Field.MAP1[4][5] = 99
+                Field.MAP1[4][4] = 99
+                for i in range (14):
+                    for j in range(15):
+                        if Field.MAP1[i][j]== 76:
+                            Field.MAP1[i][j]= 79
+                print(Game.field.QUAKE)
+    if Game.field.QUAKE == 4:  
+        if Game.field.map_no ==1:
+                Player.selif_flg =2
+                for i in CharaList.CHARA_LIST:
+                    if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
+                        i[2] = 1
+                        i[5] = []
+                        i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+                Game.charas = []
+                Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
+                Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
+                Game.charas.append(Chara((10, 7), CharaList.CHA_NO_DAUGHTER))
+                Game.charas.append(Chara((10, 7), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((10, 6), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
+                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
+                for i in range (14):
+                    for j in range(15):
+                        if Field.MAP2[i][j]== 74:
+                            Field.MAP2[i][j]= 79
+                        if Field.MAP2[i][j]== 105:
+                            Field.MAP2[i][j]= 94    
+                Game.field.QUAKE = 5
+                
+                print(Game.field.QUAKE)
+    if Game.field.QUAKE == 5: 
+        if Game.field.map_no ==2:
+            Game.charas = []
+            Game.field.QUAKE = 4
+        if Game.field.map_no ==10:
+                Player.selif_flg =2
+                for i in CharaList.CHARA_LIST:
+                    if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
+                        i[2] = 1
+                        i[5] = []
+                        i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+                Game.charas = []
+                Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
+                Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
+                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_DAUGHTER))
+                Game.charas.append(Chara((12, 7), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
+                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
+                Game.field.QUAKE = 6
+                
+                print(Game.field.QUAKE)
+    if Game.field.QUAKE == 6: 
+        if Game.field.map_no ==1:
+            Game.charas = []
+        if Game.field.map_no ==11:
+                Player.selif_flg =2
+                for i in CharaList.CHARA_LIST:
+                    if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
+                        i[2] = 1
+                        i[5] = []
+                        i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+                Game.charas = []
+                Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
+                Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
+                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_DAUGHTER))
+                Game.charas.append(Chara((12, 7), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
+                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
+                Game.field.QUAKE = 6
+                
+                print(Game.field.QUAKE)            
+                
     for m_no,chara in enumerate(Game.charas):
+       
         if Game.field.map_no ==  4:
-            if m_no == 1 or m_no == 2 or m_no == 3 or m_no == 4 or m_no == 5:
+            if m_no == 0 or m_no == 1 or m_no == 2 or m_no == 3 or m_no == 4:
                 continue
             if Player.clear_flg == 1:
                 continue
         if Game.field.map_no ==  5:
                 if Player.QUAKE_flg == 1:
                     Player.clear_flg = 1
-                elif m_no == 4  or m_no == 5 or m_no ==6 or m_no == 7:
+                elif m_no == 3  or m_no == 4 or m_no ==5 or m_no == 6:
                     continue    
         if Game.field.map_no ==  6:
-            if m_no == 1 or m_no == 2 or m_no == 3 or m_no ==6 or m_no == 7:
+            if m_no == 0 or m_no == 1 or m_no == 2 or m_no ==5 or m_no == 6:
                  continue
             if Player.QUAKE_flg == 1:
                 continue
-  
+        if not Game.field.map_no ==  2:
+            if m_no == 8 or m_no == 9  or m_no == 10 or m_no ==11 or m_no == 12 or m_no == 13 or m_no == 14  or m_no == 15 or m_no ==16 or m_no == 17:
+                continue
+        if not Game.field.map_no == 5:
+            if Game.field.QUAKE == 2:
+                continue      
         chara.draw()
     # Ｃ－４５最後）プレイヤーの描画
     Game.player.draw()
@@ -167,14 +334,14 @@ def main():
             Game.player.frame_process_img()
             
             
-            if  Player.MAP2_flg == 1:
-                Game.field.map_no = 2
-                Game.field.new_field = Field.MAP_LIST[2]
-                Game.field.read_map_info()
-                Game.field.draw()
-                Player.MAP2_flg = 0
-                pygame.display.update()
-                Player.epi_flg += 1
+            # if  Player.MAP2_flg == 1:
+            #     Game.field.map_no = 2
+            #     Game.field.new_field = Field.MAP_LIST[2]
+            #     Game.field.read_map_info()
+            #     Game.field.draw()
+            #     Player.MAP2_flg = 0
+            #     pygame.display.update()
+            #     Player.epi_flg += 1
                 
             if  Player.MAP4_flg == 1:
                 if Game.field.map_no == 4:
@@ -183,9 +350,9 @@ def main():
                     Game.field.read_map_info()
                     Game.field.draw()
 
-            if Player.TOUBOKU_flg == 1:
-                pygame.display.update()
-                Player.TOUBOKU_flg = 0
+            # if Player.TOUBOKU_flg == 1:
+            #     pygame.display.update()
+            #     Player.TOUBOKU_flg = 0
 
             if  Player.MAP8_flg == 1:
                 Game.field.map_no = 8

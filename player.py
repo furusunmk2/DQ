@@ -19,12 +19,12 @@ selif_font = pygame.font.Font('C:/Windows/Fonts/meiryo.ttc', 24)
 # プレイヤークラス
 class Player(Character):
     # 移動不能チップの番号リスト（チップの番号と合わせること）
-    UNMOVABLE_CHIP_LIST = [1, 7, 10,12, 14, 4, 18, 19, 20, 21, 22, 23, 25, 30, 31, 32, 33, 40, 41, 42, 43,45,47,48,52,54,57,58,65,67]
+    UNMOVABLE_CHIP_LIST = [1, 7, 10,12, 14, 4, 18, 19, 20, 21, 22, 23, 25,29, 30, 31, 32, 33, 40, 41, 42, 43,45,47,48,52,54,57,58,65,67]
     FIELD_DAMEGE_LIST = [3,55,56]
     SLOW_LIST = [3]
     CHARA_UNMOVABLE_CHIP_LIST = [0, 2, 3]
     epi_LIST = [44]
-    QUAKE_LIST= [26,46]
+    QUAKE_LIST= [89,46]
     DOURO_LIST = [0]
     SUNAHAMA_LIST = [2,13,26,46,3,53]
     OTOSHICHARAO_LIST = [8]
@@ -34,6 +34,7 @@ class Player(Character):
     HAKUSEN_LIST4 = [51]
     TOUBOKU_LIST_R = [34]
     TOUBOKU_LIST_L = [35]
+    crack_list = [99]
     DOOR_LIST = [7]
     END_LIST = [6]
 
@@ -41,7 +42,7 @@ class Player(Character):
     PLAYER_LV_1ST = 1
     # 初期ヒットポイント
     if PLAYER_LV_1ST == 1:
-        PLAYER_HP_1ST = 13
+        PLAYER_HP_1ST = 130
     else:
         PLAYER_HP_1ST = 10
     
@@ -52,14 +53,19 @@ class Player(Character):
     MAP2_flg = 0
     MAP4_flg = 0
     MAP5_flg = 0
+    
     QUAKE_flg = 0
-    QUAKE = 0
+    
     SUNAHAMA_LIST
     COUNT_DOWN = 0
     start_time = 0
     end_time = 0
     TSUNAMI_flg = 0
     TOUBOKU_flg = 0
+    map1_flg = 0
+    fire_flg = 0
+    start_time_QUAKE = 0
+    end_time_QUAKE = 0
     clear_flg = 0
     MAP8_flg = 0
     doku_flg = 0
@@ -115,11 +121,12 @@ class Player(Character):
         posx, posy, dx, dy, is_changed = self.check_map_move(posx, posy, dx, dy)
         
         if not is_changed:
+            
+                                    
             if self.check_chara_move(posx, posy, dx, dy, Player.UNMOVABLE_CHIP_LIST):
                 self.set_pos(posx, posy)
                 self.set_dpos(dx, dy)
             if not self.check_chara_move_damege(posx, posy, dx, dy, Player.FIELD_DAMEGE_LIST):
-                print(self.doku_flg)
                 if self.doku_flg > 10:
                     se = pygame.mixer.Sound("doku.mp3")
                     se.play()
@@ -139,7 +146,13 @@ class Player(Character):
 
 
 
-
+            if not self.check_chara_move(posx,posy, dx, dy, Player.crack_list):
+                                        field.Field.MAP5[1][3] = 48
+                                        print(123)
+                                        Game.field.new_field = field.Field.MAP_LIST[5]
+                                        Game.field.read_map_info()
+                                        Game.field.draw()
+                                        pygame.display.update()
 
             if int("".join(map(str,epi_flg_list)))== 10000000 :
                 field.Field.MAP4[10][2] = 44
@@ -156,20 +169,26 @@ class Player(Character):
                         Player.MAP5_flg = 1
                         Player.QUAKE_flg = 1
                         field.Field.MAP4[10][8] = 46
-                        field.Field.MAP4[9][8] = 26
-                        field.Field.MAP4[8][8] = 26
-                        field.Field.MAP4[7][8] = 26
-                        field.Field.MAP4[6][8] = 26
+                        field.Field.MAP4[9][8] = 89
+                        field.Field.MAP4[8][8] = 89
+                        field.Field.MAP4[7][8] = 89
+                        field.Field.MAP4[6][8] = 89
                         field.Field.MAP4[10][9] = 46
-                        field.Field.MAP4[9][9] = 26
-                        field.Field.MAP4[8][9] = 26
-                        field.Field.MAP4[7][9] = 26
-                        field.Field.MAP4[6][9] = 26
+                        field.Field.MAP4[9][9] = 89
+                        field.Field.MAP4[8][9] = 89
+                        field.Field.MAP4[7][9] = 89
+                        field.Field.MAP4[6][9] = 89
                         field.Field.MAP4[10][10] = 46
-                        field.Field.MAP4[9][10] = 26
-                        field.Field.MAP4[8][10] = 26
-                        field.Field.MAP4[7][10] = 26
-                        field.Field.MAP4[6][10] = 26
+                        field.Field.MAP4[9][10] = 89
+                        field.Field.MAP4[8][10] = 89
+                        field.Field.MAP4[7][10] = 89
+                        field.Field.MAP4[6][10] = 89
+                        
+                        field.Field.MAP4[10][14] = 46
+                        field.Field.MAP4[9][14] = 2
+                        field.Field.MAP4[8][14] = 2
+                        field.Field.MAP4[7][14] = 2
+                        field.Field.MAP4[6][14] = 2
                         if Game.field.map_no == 4:
                             Game.field.map_no = 4
                             Game.field.new_field = field.Field.MAP_LIST[4]
@@ -183,7 +202,7 @@ class Player(Character):
                         if not Player.start_time ==0:
                             Player.end_time = time.time()
                         if 0 <= Player.end_time - Player.start_time <=5:
-                                Player.QUAKE = 1
+                                field.Field.QUAKE = 1
 
                                 field.Field.chip_list = [[field.Chip() for _ in range(Game.FIELD_WIDTH)] \
                                                 for _ in range(Game.FIELD_HEIGHT)]
@@ -213,13 +232,32 @@ class Player(Character):
                                 field.Field.MAP4[3][8] = 48
                                 field.Field.MAP4[1][9] = 48
                                 field.Field.MAP5[3][5] = 48
-                                field.Field.MAP5[1][3] = 48
+                                # field.Field.MAP5[1][3] = 48
                                 field.Field.MAP5[2][3] = 48
                                 field.Field.MAP5[3][8] = 48
                                 field.Field.MAP5[2][8] = 48
                                 field.Field.MAP5[3][8] = 48
                                 field.Field.MAP5[2][6] = 48
 
+
+                                field.Field.MAP5[1][0] = 95
+                                field.Field.MAP5[1][1] = 95
+                                field.Field.MAP5[1][2] = 95
+                                field.Field.MAP5[1][3] = 95
+                                field.Field.MAP5[1][4] = 95
+                                field.Field.MAP5[1][5] = 95
+                                field.Field.MAP5[1][6] = 95
+                                field.Field.MAP5[1][7] = 95
+                                field.Field.MAP5[8][6] = 2
+                                field.Field.MAP5[8][7] = 2
+                                field.Field.MAP5[8][8] = 2
+                                field.Field.MAP5[6][6] = 2
+                                field.Field.MAP5[6][7] = 2
+                                field.Field.MAP5[6][8] = 2
+                                field.Field.MAP5[7][6] = 2
+                                field.Field.MAP5[7][7] = 2
+                                field.Field.MAP5[7][8] = 2
+                                
                                 field.Field.MAP5[2][1] = 48
                                 field.Field.MAP5[3][9] = 48
                                 field.Field.MAP5[2][11] = 48
@@ -300,7 +338,7 @@ class Player(Character):
                     if not Player.start_time ==0:
                         Player.end_time = time.time()
                         if 10 <= Player.end_time - Player.start_time < 11:
-                            if field.Field.MAP5[10][1] == 13:    
+                            if field.Field.MAP4[10][1] == 13:    
                                 for i in range(15):
                                     if i==0:
                                         field.Field.MAP5[10][i] = 3
@@ -326,10 +364,10 @@ class Player(Character):
                                          
             if   15 <= Player.end_time - Player.start_time < 16:
                 if Player.TSUNAMI_flg == 0: 
-                        if field.Field.MAP5[9][0] == 3:
+                        if field.Field.MAP4[9][1] == 3:
                             return
                         else:
-                            if field.Field.MAP5[9][1] == 13: 
+                            if field.Field.MAP4[9][1] == 13: 
                                 for i in range(15):
                                     if i==0:
                                         field.Field.MAP5[9][i] = 3
@@ -355,10 +393,10 @@ class Player(Character):
                 
             if   20 <= Player.end_time - Player.start_time < 21:
                 if Player.TSUNAMI_flg == 0 :
-                        if field.Field.MAP5[8][0] == 3:
+                        if field.Field.MAP4[8][1] == 3:
                             return
                         else:
-                            if field.Field.MAP5[8][1] == 13:
+                            if field.Field.MAP4[8][1] == 13:
                                 for i in range(15):
                                     if i==0:
                                         field.Field.MAP5[8][i] = 3
@@ -383,10 +421,10 @@ class Player(Character):
                                 pygame.display.update()
             if   25 <= Player.end_time - Player.start_time < 26:    
                 if Player.TSUNAMI_flg == 0 :
-                        if field.Field.MAP5[7][0] == 3:
+                        if field.Field.MAP4[7][1] == 3:
                             return
                         else:
-                            if field.Field.MAP5[7][1] == 13:
+                            if field.Field.MAP4[7][1] == 13:
                                 for i in range(15):
                                     if i==0:
                                         field.Field.MAP5[7][i] = 3
@@ -413,7 +451,7 @@ class Player(Character):
             if 30 <= Player.end_time - Player.start_time < 31:            
                 if Player.TSUNAMI_flg == 0 :
 
-                        if field.Field.MAP5[6][0] == 3:
+                        if field.Field.MAP4[6][1] == 3:
                             return
                         else:
                             for i in range(15):
@@ -443,20 +481,21 @@ class Player(Character):
                             pygame.display.update()
             if 35 <= Player.end_time - Player.start_time < 36:
                 if Player.TSUNAMI_flg == 0 :    
-                                for i in range(3,7):
+                                for i in range(2,7):
                                     for j in range(14):
                                         for k in range(15):
                                             
                                             if field.Field.MAP_LIST[i][j][k] == 14:
                                                 field.Field.MAP_LIST[i][j][k] = 57
-                                            if field.Field.MAP_LIST[i][j][k] == 0:
+                                            if field.Field.MAP_LIST[i][j][k] == 0 or field.Field.MAP_LIST[i][j][k] == 84:
                                                 field.Field.MAP_LIST[i][j][k] = 55
-                                            if field.Field.MAP_LIST[i][j][k] == 16:
+                                            if field.Field.MAP_LIST[i][j][k] == 16 or field.Field.MAP_LIST[i][j][k] == 86:
                                                 field.Field.MAP_LIST[i][j][k] = 56
                                             if field.Field.MAP_LIST[i][j][k] == 48:
                                                 field.Field.MAP_LIST[i][j][k] = 58
-                                            if field.Field.MAP_LIST[i][j][k] == 52:
-                                                field.Field.MAP_LIST[i][j][k] = 3
+                                            if not i == 2:
+                                                if field.Field.MAP_LIST[i][j][k] == 52:
+                                                    field.Field.MAP_LIST[i][j][k] = 3
                                             if field.Field.MAP_LIST[i][j][k] == 53:
                                                 field.Field.MAP_LIST[i][j][k] = 3
                                             if field.Field.MAP_LIST[i][j][k] == 12:
@@ -469,19 +508,29 @@ class Player(Character):
                                                 field.Field.MAP_LIST[i][j][k] = 56   
                                             if field.Field.MAP_LIST[i][j][k] == 47:
                                                 field.Field.MAP_LIST[i][j][k] = 54
-                                            if field.Field.MAP_LIST[i][j][k] == 17:
-                                                field.Field.MAP_LIST[i][j][k] = 55 
-                                            if field.Field.MAP_LIST[i][j][k] == 10:
-                                                field.Field.MAP_LIST[i][j][k] = 54                                  
+                                            if field.Field.MAP_LIST[i][j][k] in [17,85,99] :
+                                                field.Field.MAP_LIST[i][j][k] = 55
+                                            if field.Field.MAP_LIST[i][j][k] == 75:
+                                                field.Field.MAP_LIST[i][j][k] = 55    
+                                            if i == 2: 
+                                                if field.Field.MAP_LIST[i][j][k] == 10:
+                                                    field.Field.MAP_LIST[i][j][k] = 52
+                                            else:
+                                                if field.Field.MAP_LIST[i][j][k] == 10:
+                                                    field.Field.MAP_LIST[i][j][k] = 54                                  
                                             if field.Field.MAP_LIST[i][j][k] == 8:
                                                 field.Field.MAP_LIST[i][j][k] = 59
                                             if field.Field.MAP_LIST[i][j][k] == 11:
-                                                field.Field.MAP_LIST[i][j][k] = 53    
+                                                field.Field.MAP_LIST[i][j][k] = 53 
+                                            if field.Field.MAP_LIST[i][j][k] in [95,96]:
+                                                field.Field.MAP_LIST[i][j][k] += 2       
                                             if field.Field.MAP_LIST[i][j][k] in [20,21,22,23,30,31,32,33,40,41,42,43]:
                                                 field.Field.MAP_LIST[i][j][k] += 40
+                                            if field.Field.MAP_LIST[i][j][k] in [90,91,92,93,100,101,102,103,110,111,112,113]:
+                                                field.Field.MAP_LIST[i][j][k] -= 30
                             # if field.Field.MAP5[6][1] == 13:
 
-
+                                field.MAP5_flg2 = 1
                                 Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]
                                 Game.field.read_map_info()
                                 Game.field.draw()  
@@ -548,16 +597,29 @@ class Player(Character):
                         Game.field.draw()  
                         self.hp -= 5
                         Player.TOUBOKU_flg = 1
+                        Player.start_time_QUAKE = time.time()
             if not self.check_chara_move(posx, posy, dx, dy, Player.TOUBOKU_LIST_L): 
                 if Player.TSUNAMI_flg == 0:    
-                    if field.Field.MAP1[posy][posx] == 35:  #右
-                        field.Field.MAP1[posy][posx] = 68
-                        field.Field.MAP1[posy][posx+1] = 67
+                    if field.Field.MAP_LIST[Game.field.map_no][posy][posx] == 35:  #右
+                        field.Field.MAP_LIST[Game.field.map_no][posy][posx] = 68
+                        field.Field.MAP_LIST[Game.field.map_no][posy][posx+1] = 67
                         Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]             
                         Game.field.read_map_info
                         Game.field.draw()  
                         self.hp -= 5 
                         Player.TOUBOKU_flg = 1
+                        Player.start_time_QUAKE = time.time()
+            if Player.TOUBOKU_flg ==1:
+                Player.end_time_QUAKE = time.time()
+                if 0 <=Player.end_time_QUAKE - Player.start_time_QUAKE <=3:
+                    field.Field.chip_list = [[field.Chip() for _ in range(Game.FIELD_WIDTH)] \
+                                                    for _ in range(Game.FIELD_HEIGHT)]
+                    for y in range(Game.FIELD_HEIGHT):
+                        for x in range(Game.FIELD_WIDTH):
+                            field.Field.chip_list[y][x].set_pos(x+1, y+0.5)
+                            field.Field.chip_list[y][x].set_chip_no(0)
+                    pygame.mixer.music.load('bgm.mp3')
+                    pygame.display.update()
 
 
 
@@ -576,28 +638,40 @@ class Player(Character):
                     Game.phase = Phase.GAME_CLEAR
 
             for cha in Game.charas:
-                if cha.coli_flg > 0:
+                if not cha.coli_flg == 7:
                     if not self.check_chara_move(posx, posy, dx, dy, Player.QUAKE_LIST) and Player.QUAKE_flg == 1:
                             continue
                     else:   
                         Game.surface.fill((0, 0, 0))
                         if Game.field.map_no ==  4:
-                            if cha.coli_flg == 1 or cha.coli_flg == 2 or cha.coli_flg == 3 or cha.coli_flg == 4 or cha.coli_flg == 5:
+                            if cha.coli_flg == 1 or cha.coli_flg == 2 or cha.coli_flg == 3 or cha.coli_flg == 4 or cha.coli_flg == 0:
                                 continue 
                         if Game.field.map_no ==  5:
-                            if cha.coli_flg == 4  or cha.coli_flg == 5 or cha.coli_flg ==6 or cha.coli_flg == 7:
+                            if cha.coli_flg == 4  or cha.coli_flg == 5 or cha.coli_flg ==6 or cha.coli_flg == 3:
                                 continue   
 
                         if Game.field.map_no ==  6:
-                            if cha.coli_flg == 1 or cha.coli_flg == 2 or cha.coli_flg == 3 or cha.coli_flg ==6 or cha.coli_flg == 7:
-                                continue   
+                            if cha.coli_flg == 1 or cha.coli_flg == 2 or cha.coli_flg == 0 or cha.coli_flg ==6 or cha.coli_flg == 5:
+                                continue  
+                        if not Game.field.map_no ==  2:
+                            if cha.coli_flg == 8 or cha.coli_flg == 9 or cha.coli_flg == 10 or cha.coli_flg == 11 or cha.coli_flg == 12 or cha.coli_flg == 13 or cha.coli_flg == 14 or cha.coli_flg == 15 or cha.coli_flg == 16 or cha.coli_flg == 17:
+         
+                                continue    
+                        if  Game.field.map_no ==  2:
+                            if cha.coli_flg == 8 or cha.coli_flg == 9 or cha.coli_flg == 10 or cha.coli_flg == 11 or cha.coli_flg == 12 or cha.coli_flg == 13 or cha.coli_flg == 14 or cha.coli_flg == 15 or cha.coli_flg == 16 or cha.coli_flg == 17:
+                                Player.fire_flg += 1
+                                if Player.fire_flg == 15:
+                                    self.hp -= 1
+                                    Player.fire_flg = 0 
+                                     
                         Game.surface.blit(selif_font.render(cha.name,
                                                                 True, (255, 255, 255)), (1000, 230))
                         if self.selif_flg >= 1:
                 
                                 Game.surface.blit(selif_font.render(selif.list[cha.coli_flg][Player.selif_num],
                                                                     True, (255, 255, 255)), (1000, 280))
-                                epi_flg_list[cha.coli_flg] = 0
+                                epi_flg_list[7-cha.coli_flg] = 0
+
                                 if Game.on_enterkey() and not self.enter_key_pressed:
                                     self.selif_flg = 0
                                     self.enter_key_pressed = True

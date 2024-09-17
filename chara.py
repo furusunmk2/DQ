@@ -2,19 +2,24 @@ import random
 from game import Game, Phase
 from character import Character
 from charalist import CharaList
-
-pos_num_list=[(),(),(),(),(),(),(),()]
+import field
+import pygame
+pos_num_list=[(),(),(),(),(),(),(),(),()]
 # モンスタークラス
 class Chara(Character):
     # 移動方向リスト
     MOVE_DIR_LIST = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    
+    MOVE_DIR_LIST2 = [(-1, 0), (0, 1), (0, -1)]
+    MOVE_DIR_LIST_FIRE = [(1, 0), (-1, 0),  (0, -1)]
+    DIR_flg = 0
+    FIRE_DIR = 0
     # コンストラクタ
     def __init__(self, pos, chara_no):
         # Ｈ－９６最初）親クラスのコンストラクタを呼び出し
         super().__init__()
         # Ｈ－９７）モンスター番号を設定
         self.chara_no = chara_no
+        
         # Ｈ－９８）モンスターの位置を設定（親クラスのメソッド）
         self.set_pos(pos[0], pos[1])
         # Ｈ－９９）次移動開始時間
@@ -81,7 +86,63 @@ class Chara(Character):
             # Ｉ－１０７）移動タイミングを超えている場合
             if self.next_move_count <= Game.count:
                 # Ｉ－１０８）移動方向をランダムに設定
-                self.move_x, self.move_y = random.choice(Chara.MOVE_DIR_LIST)
+                if self.chara_no == 7:
+                    self.move_x, self.move_y = (-1, 0)
+                elif field.Field.MAP4[3][5] in [48]:
+                    if Game.field.map_no == 5:
+                        if Chara.DIR_flg == 1:
+                            self.move_x, self.move_y = (-1, 0)
+                        else:
+                            if self.chara_no == 5 :
+                                if 0 <= self.pos[0] <= 14 :
+                                    if not self.check_chara_move(self.pos[0],self.pos[1], self.dxy[0], self.dxy[1], [95,97]):
+                                        self.move_x, self.move_y = (-1, 0)
+                                        Chara.DIR_flg = 1
+                                    else:
+                                        self.move_x, self.move_y = (0, -1)
+                            if self.chara_no == 6 :
+                                if 0 <= self.pos[0] <= 14 :
+                                    
+                                        self.move_x, self.move_y = (0, -1)   
+                        if self.chara_no == 3 or self.chara_no == 4:
+                                self.move_x, self.move_y = (-1, 0)       
+                    elif Game.field.map_no == 4:
+                        self.move_x, self.move_y = (1, 0)
+                    
+                elif Game.field.map_no == 1: 
+                        if Game.player.map1_flg == 0:
+                            self.move_x, self.move_y = (1, 0)
+                        elif Game.player.map1_flg == 1:
+                            if 0 <= self.pos[1] <= 13 :
+                                if not self.check_chara_move(self.pos[0],self.pos[1], self.dxy[0], self.dxy[1], [99]):
+                                    self.move_x, self.move_y = (0, -1)
+                            
+                            else:
+                                self.move_x, self.move_y = (-1, 0)
+                        
+                     
+                elif Game.field.map_no == 2:
+                        Game.player.map1_flg = 1
+                        if  self.chara_no in [0,1,2,3,4,5,6]:
+                            self.move_x, self.move_y = (-1, 0)
+                        else:
+                            if self.FIRE_DIR == 0:
+                                self.move_x, self.move_y = random.choice(Chara.MOVE_DIR_LIST_FIRE)
+                                self.FIRE_DIR = 1
+                            elif self.FIRE_DIR == 1:
+                                self.move_x, self.move_y = random.choice(Chara.MOVE_DIR_LIST_FIRE)
+                                self.FIRE_DIR = 2    
+                            elif self.FIRE_DIR == 2:
+                                self.move_x, self.move_y = random.choice(Chara.MOVE_DIR_LIST_FIRE)
+                                self.FIRE_DIR = 3      
+                            else:
+                                self.move_x, self.move_y = (-1,0)
+                                self.FIRE_DIR = 0
+                
+                elif  Game.field.MAP5_flg2 == 1:
+                    self.move_x, self.move_y = (0, 1) 
+                else:
+                    self.move_x, self.move_y = random.choice(Chara.MOVE_DIR_LIST)
                 # Ｉ－１０９）残り移動回数を設定
                 self.remain_move_time = self.direction_interval
         # Ｉ－１１０）移動中の場合
@@ -94,17 +155,39 @@ class Chara(Character):
                 # Ｉ－１１３）移動方向に仮移動
                 dx += Character.MOVE_STEP * self.move_x
                 dy += Character.MOVE_STEP * self.move_y
+                if self.chara_no == 8:
+                    if 0<= posy <=14 and 0<= posx <= 15:
+                        if field.Field.MAP2[posy][posx] in [74,8]:
+                            field.Field.MAP2[posy][posx] = 69
+                            Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]
+                            Game.field.read_map_info()
+                            Game.field.draw()  
+                            pygame.display.update()
+                        if field.Field.MAP2[posy][posx] ==  105:
+                            field.Field.MAP2[posy][posx] = 94
+                            Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]
+                            Game.field.read_map_info()
+                            Game.field.draw()  
+                            pygame.display.update()    
+                        if field.Field.MAP2[posy][posx] in [20,21,22,23,30,31,32,33,40,41,42,43] :
+                            field.Field.MAP2[posy][posx] += 70
+                            Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]
+                            Game.field.read_map_info()
+                            Game.field.draw()  
+                            pygame.display.update()
+                    
+                    
                 # Ｊ－１３２Fieldから）モンスターとプレイヤーの四角を取得
                 chara_rect = self.get_rect()
                 player_rect = Game.player.get_rect()
                 pos_num_list[self.chara_no]=self.pos
-                for rect_other in range(len(pos_num_list)):
-                    if self.chara_no==rect_other:
-                        continue
+                # for rect_other in range(len(pos_num_list)):
+                #     if self.chara_no==rect_other:
+                #         continue
 
-                    elif self.pos == pos_num_list[rect_other]:
-                        dx -= Character.MOVE_STEP * self.move_x *3
-                        dy -= Character.MOVE_STEP * self.move_y *3
+                #     elif self.pos == pos_num_list[rect_other]:
+                #         dx -= Character.MOVE_STEP * self.move_x *3
+                #         dy -= Character.MOVE_STEP * self.move_y *3
                         
                         
                     
@@ -114,7 +197,7 @@ class Chara(Character):
                     return
                     
                 else:
-                    self.coli_flg = 0
+                    self.coli_flg = 7
                     # Ｉ－１１４）加算後の値で、位置を計算
                     posx, posy, dx, dy = self.calc_chara_pos(posx, posy, dx, dy)
                     # Ｉ－１１５）マップ移動チェックで移動可能な場合
