@@ -5,6 +5,7 @@ from charalist import CharaList
 import field
 import pygame
 pos_num_list=[(),(),(),(),(),(),(),(),()]
+
 # モンスタークラス
 class Chara(Character):
     # 移動方向リスト
@@ -13,12 +14,14 @@ class Chara(Character):
     MOVE_DIR_LIST_FIRE = [(1, 0), (-1, 0),  (0, -1)]
     DIR_flg = 0
     FIRE_DIR = 0
+    epi_flg_list2=[1,"","","","","","",""]
     # コンストラクタ
     def __init__(self, pos, chara_no):
         # Ｈ－９６最初）親クラスのコンストラクタを呼び出し
         super().__init__()
         # Ｈ－９７）モンスター番号を設定
         self.chara_no = chara_no
+        
         
         # Ｈ－９８）モンスターの位置を設定（親クラスのメソッド）
         self.set_pos(pos[0], pos[1])
@@ -110,18 +113,19 @@ class Chara(Character):
                         self.move_x, self.move_y = (1, 0)
                     
                 elif Game.field.map_no == 1: 
-                        if Game.player.map1_flg == 0:
-                            self.move_x, self.move_y = (1, 0)
-                        elif Game.player.map1_flg == 1:
-                            if 0 <= self.pos[1] <= 13 :
-                                if not self.check_chara_move(self.pos[0],self.pos[1], self.dxy[0], self.dxy[1], [99]):
-                                    self.move_x, self.move_y = (0, -1)
+                    if Game.player.map1_flg == 0:
+                        self.move_x, self.move_y = (1, 0)
+                    elif Game.player.map1_flg == 1:
+                        if 0 <= self.pos[1] <= 13 :
+                            if not self.check_chara_move(self.pos[0],self.pos[1], self.dxy[0], self.dxy[1], [99]):
+                                self.move_x, self.move_y = (0, -1)
                             
                             else:
                                 self.move_x, self.move_y = (-1, 0)
                         
                      
                 elif Game.field.map_no == 2:
+                    if int("".join(map(str,self.epi_flg_list2)))== 10000000 :
                         Game.player.map1_flg = 1
                         if  self.chara_no in [0,1,2,3,4,5,6]:
                             self.move_x, self.move_y = (-1, 0)
@@ -138,7 +142,8 @@ class Chara(Character):
                             else:
                                 self.move_x, self.move_y = (-1,0)
                                 self.FIRE_DIR = 0
-                
+                    else:
+                        self.move_x, self.move_y = random.choice(Chara.MOVE_DIR_LIST)
                 elif  Game.field.MAP5_flg2 == 1:
                     self.move_x, self.move_y = (0, 1) 
                 else:

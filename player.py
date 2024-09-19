@@ -8,6 +8,7 @@ import chip
 from chara import Chara
 import selif
 from charalist import CharaList
+import time
 
 # Pygameの初期化
 pygame.init()
@@ -148,7 +149,6 @@ class Player(Character):
 
             if not self.check_chara_move(posx,posy, dx, dy, Player.crack_list):
                                         field.Field.MAP5[1][3] = 48
-                                        print(123)
                                         Game.field.new_field = field.Field.MAP_LIST[5]
                                         Game.field.read_map_info()
                                         Game.field.draw()
@@ -201,7 +201,7 @@ class Player(Character):
                     if Player.QUAKE_flg == 1: 
                         if not Player.start_time ==0:
                             Player.end_time = time.time()
-                        if 0 <= Player.end_time - Player.start_time <=5:
+                        if 0 <= Player.end_time - Player.start_time <=3:
                                 field.Field.QUAKE = 1
 
                                 field.Field.chip_list = [[field.Chip() for _ in range(Game.FIELD_WIDTH)] \
@@ -213,7 +213,7 @@ class Player(Character):
                                         field.Field.chip_list[y][x].set_chip_no(0)
                                 pygame.mixer.music.load('bgm.mp3')
                                 pygame.display.update()
-                                Player.selif_num = 1
+                                Player.selif_flg = 1
                                 Game.surface.blit(selif_font.render("お兄さん",
                                                                 True, (255, 255, 255)), (1000, 230))
                                 Game.surface.blit(selif_font.render("地震だー！！",
@@ -337,7 +337,7 @@ class Player(Character):
                     #         pygame.display.update()
                     if not Player.start_time ==0:
                         Player.end_time = time.time()
-                        if 10 <= Player.end_time - Player.start_time < 11:
+                        if 6 <= Player.end_time - Player.start_time < 7:
                             if field.Field.MAP4[10][1] == 13:    
                                 for i in range(15):
                                     if i==0:
@@ -362,7 +362,7 @@ class Player(Character):
                             Game.field.draw()  
                             pygame.display.update()  
                                          
-            if   15 <= Player.end_time - Player.start_time < 16:
+            if   9 <= Player.end_time - Player.start_time < 10:
                 if Player.TSUNAMI_flg == 0: 
                         if field.Field.MAP4[9][1] == 3:
                             return
@@ -391,7 +391,7 @@ class Player(Character):
                                 Game.field.draw()  
                                 pygame.display.update()
                 
-            if   20 <= Player.end_time - Player.start_time < 21:
+            if   12 <= Player.end_time - Player.start_time < 13:
                 if Player.TSUNAMI_flg == 0 :
                         if field.Field.MAP4[8][1] == 3:
                             return
@@ -419,7 +419,7 @@ class Player(Character):
                                 Game.field.read_map_info()
                                 Game.field.draw()  
                                 pygame.display.update()
-            if   25 <= Player.end_time - Player.start_time < 26:    
+            if   15 <= Player.end_time - Player.start_time < 16:    
                 if Player.TSUNAMI_flg == 0 :
                         if field.Field.MAP4[7][1] == 3:
                             return
@@ -448,7 +448,7 @@ class Player(Character):
                                 Game.field.draw()  
                                 pygame.display.update()
             
-            if 30 <= Player.end_time - Player.start_time < 31:            
+            if 18 <= Player.end_time - Player.start_time < 19:            
                 if Player.TSUNAMI_flg == 0 :
 
                         if field.Field.MAP4[6][1] == 3:
@@ -479,55 +479,59 @@ class Player(Character):
                             Game.field.read_map_info()
                             Game.field.draw()  
                             pygame.display.update()
-            if 35 <= Player.end_time - Player.start_time < 36:
+            if 21 <= Player.end_time - Player.start_time < 22:
                 if Player.TSUNAMI_flg == 0 :    
-                                for i in range(2,7):
-                                    for j in range(14):
-                                        for k in range(15):
-                                            
-                                            if field.Field.MAP_LIST[i][j][k] == 14:
-                                                field.Field.MAP_LIST[i][j][k] = 57
-                                            if field.Field.MAP_LIST[i][j][k] == 0 or field.Field.MAP_LIST[i][j][k] == 84:
-                                                field.Field.MAP_LIST[i][j][k] = 55
-                                            if field.Field.MAP_LIST[i][j][k] == 16 or field.Field.MAP_LIST[i][j][k] == 86:
-                                                field.Field.MAP_LIST[i][j][k] = 56
-                                            if field.Field.MAP_LIST[i][j][k] == 48:
-                                                field.Field.MAP_LIST[i][j][k] = 58
-                                            if not i == 2:
-                                                if field.Field.MAP_LIST[i][j][k] == 52:
+                                for i in range(13):
+                                    # 2,3,4,5,6,9,12
+                                    if i in [2,3,4,5,6,9,12]:
+                                        for j in range(14):
+                                            for k in range(15):
+                                                
+                                                if field.Field.MAP_LIST[i][j][k] == 14:
+                                                    field.Field.MAP_LIST[i][j][k] = 57
+                                                if field.Field.MAP_LIST[i][j][k] == 0 or field.Field.MAP_LIST[i][j][k] == 84:
+                                                    field.Field.MAP_LIST[i][j][k] = 55
+                                                if field.Field.MAP_LIST[i][j][k] == 16 or field.Field.MAP_LIST[i][j][k] == 86:
+                                                    field.Field.MAP_LIST[i][j][k] = 56
+                                                if field.Field.MAP_LIST[i][j][k] == 48:
+                                                    field.Field.MAP_LIST[i][j][k] = 58
+                                                if not i == 2:
+                                                    if field.Field.MAP_LIST[i][j][k] == 52:
+                                                        field.Field.MAP_LIST[i][j][k] = 3
+                                                if field.Field.MAP_LIST[i][j][k] == 53:
                                                     field.Field.MAP_LIST[i][j][k] = 3
-                                            if field.Field.MAP_LIST[i][j][k] == 53:
-                                                field.Field.MAP_LIST[i][j][k] = 3
-                                            if field.Field.MAP_LIST[i][j][k] == 12:
-                                                field.Field.MAP_LIST[i][j][k] = 54
-                                            if field.Field.MAP_LIST[i][j][k] == 49:
-                                                field.Field.MAP_LIST[i][j][k] = 56
-                                            if field.Field.MAP_LIST[i][j][k] == 50:
-                                                field.Field.MAP_LIST[i][j][k] = 56 
-                                            if field.Field.MAP_LIST[i][j][k] == 51:
-                                                field.Field.MAP_LIST[i][j][k] = 56   
-                                            if field.Field.MAP_LIST[i][j][k] == 47:
-                                                field.Field.MAP_LIST[i][j][k] = 54
-                                            if field.Field.MAP_LIST[i][j][k] in [17,85,99] :
-                                                field.Field.MAP_LIST[i][j][k] = 55
-                                            if field.Field.MAP_LIST[i][j][k] == 75:
-                                                field.Field.MAP_LIST[i][j][k] = 55    
-                                            if i == 2: 
-                                                if field.Field.MAP_LIST[i][j][k] == 10:
-                                                    field.Field.MAP_LIST[i][j][k] = 52
-                                            else:
-                                                if field.Field.MAP_LIST[i][j][k] == 10:
-                                                    field.Field.MAP_LIST[i][j][k] = 54                                  
-                                            if field.Field.MAP_LIST[i][j][k] == 8:
-                                                field.Field.MAP_LIST[i][j][k] = 59
-                                            if field.Field.MAP_LIST[i][j][k] == 11:
-                                                field.Field.MAP_LIST[i][j][k] = 53 
-                                            if field.Field.MAP_LIST[i][j][k] in [95,96]:
-                                                field.Field.MAP_LIST[i][j][k] += 2       
-                                            if field.Field.MAP_LIST[i][j][k] in [20,21,22,23,30,31,32,33,40,41,42,43]:
-                                                field.Field.MAP_LIST[i][j][k] += 40
-                                            if field.Field.MAP_LIST[i][j][k] in [90,91,92,93,100,101,102,103,110,111,112,113]:
-                                                field.Field.MAP_LIST[i][j][k] -= 30
+                                                if field.Field.MAP_LIST[i][j][k] == 12:
+                                                    field.Field.MAP_LIST[i][j][k] = 54
+                                                if field.Field.MAP_LIST[i][j][k] == 49:
+                                                    field.Field.MAP_LIST[i][j][k] = 56
+                                                if field.Field.MAP_LIST[i][j][k] == 50:
+                                                    field.Field.MAP_LIST[i][j][k] = 56 
+                                                if field.Field.MAP_LIST[i][j][k] == 51:
+                                                    field.Field.MAP_LIST[i][j][k] = 56   
+                                                if field.Field.MAP_LIST[i][j][k] == 47:
+                                                    field.Field.MAP_LIST[i][j][k] = 54
+                                                if field.Field.MAP_LIST[i][j][k] in [17,85,99] :
+                                                    field.Field.MAP_LIST[i][j][k] = 55
+                                                if field.Field.MAP_LIST[i][j][k] == 75:
+                                                    field.Field.MAP_LIST[i][j][k] = 55    
+                                                if i == 2: 
+                                                    if field.Field.MAP_LIST[i][j][k] == 10:
+                                                        field.Field.MAP_LIST[i][j][k] = 52
+                                                else:
+                                                    if field.Field.MAP_LIST[i][j][k] == 10:
+                                                        field.Field.MAP_LIST[i][j][k] = 54                                  
+                                                if field.Field.MAP_LIST[i][j][k] == 8:
+                                                    field.Field.MAP_LIST[i][j][k] = 59
+                                                if field.Field.MAP_LIST[i][j][k] == 11:
+                                                    field.Field.MAP_LIST[i][j][k] = 53 
+                                                if field.Field.MAP_LIST[i][j][k] in [95,96]:
+                                                    field.Field.MAP_LIST[i][j][k] += 2       
+                                                if field.Field.MAP_LIST[i][j][k] in [20,21,22,23,30,31,32,33,40,41,42,43]:
+                                                    field.Field.MAP_LIST[i][j][k] += 40
+                                                if field.Field.MAP_LIST[i][j][k] in [90,91,92,93,100,101,102,103,110,111,112,113]:
+                                                    field.Field.MAP_LIST[i][j][k] -= 30
+                                                if field.Field.MAP_LIST[i][j][k] == 106:
+                                                    field.Field.MAP_LIST[i][j][k] = 107
                             # if field.Field.MAP5[6][1] == 13:
 
                                 field.MAP5_flg2 = 1
@@ -535,6 +539,79 @@ class Player(Character):
                                 Game.field.read_map_info()
                                 Game.field.draw()  
                                 pygame.display.update()
+                                
+            if 24 <= Player.end_time - Player.start_time < 90:
+                if Player.TSUNAMI_flg == 0 :    
+                                for i in range(13):
+                                    # 2,3,4,5,6,9,12
+                                    if i in [1,10,11]:
+                                        for j in range(14):
+                                            if 24 + (j + i * 1.5) * 2 <= Player.end_time - Player.start_time <= 25 + (j + i * 1.5) * 2:
+                                                j = 13-j
+                                                print(j)
+                                                for k in range(15):
+                                                    
+                                                    if field.Field.MAP_LIST[i][j][k] in [14,1]:
+                                                        field.Field.MAP_LIST[i][j][k] = 57
+                                                    if field.Field.MAP_LIST[i][j][k] in [0,17,34,35,36,37,38,39,69,75,70,84,95]:
+                                                        field.Field.MAP_LIST[i][j][k] = 55
+                                                    if field.Field.MAP_LIST[i][j][k] == 16 or field.Field.MAP_LIST[i][j][k] == 86:
+                                                        field.Field.MAP_LIST[i][j][k] = 56
+                                                    if field.Field.MAP_LIST[i][j][k] == 48:
+                                                        field.Field.MAP_LIST[i][j][k] = 58
+                                                    if not i == 2:
+                                                        if field.Field.MAP_LIST[i][j][k] == 52:
+                                                            field.Field.MAP_LIST[i][j][k] = 3
+                                                    if field.Field.MAP_LIST[i][j][k] == 53:
+                                                        field.Field.MAP_LIST[i][j][k] = 3
+                                                    if field.Field.MAP_LIST[i][j][k] == 12:
+                                                        field.Field.MAP_LIST[i][j][k] = 54
+                                                    if field.Field.MAP_LIST[i][j][k] == 49:
+                                                        field.Field.MAP_LIST[i][j][k] = 56
+                                                    if field.Field.MAP_LIST[i][j][k] == 50:
+                                                        field.Field.MAP_LIST[i][j][k] = 56 
+                                                    if field.Field.MAP_LIST[i][j][k] == 51:
+                                                        field.Field.MAP_LIST[i][j][k] = 56   
+                                                    if field.Field.MAP_LIST[i][j][k] == 47:
+                                                        field.Field.MAP_LIST[i][j][k] = 54
+                                                    if field.Field.MAP_LIST[i][j][k] in [17,85,99] :
+                                                        field.Field.MAP_LIST[i][j][k] = 55
+                                                    if field.Field.MAP_LIST[i][j][k] == 75:
+                                                        field.Field.MAP_LIST[i][j][k] = 55    
+                                                    if i == 2: 
+                                                        if field.Field.MAP_LIST[i][j][k] == 10:
+                                                            field.Field.MAP_LIST[i][j][k] = 52
+                                                    else:
+                                                        if field.Field.MAP_LIST[i][j][k] == 10:
+                                                            field.Field.MAP_LIST[i][j][k] = 54                                  
+                                                    if field.Field.MAP_LIST[i][j][k] == 8:
+                                                        field.Field.MAP_LIST[i][j][k] = 59
+                                                    if field.Field.MAP_LIST[i][j][k] == 11:
+                                                        field.Field.MAP_LIST[i][j][k] = 53 
+                                                    if field.Field.MAP_LIST[i][j][k] in [95,96]:
+                                                        field.Field.MAP_LIST[i][j][k] += 2       
+                                                    if field.Field.MAP_LIST[i][j][k] in [65,66,67,68]:
+                                                        field.Field.MAP_LIST[i][j][k] += 49           
+                                                    if field.Field.MAP_LIST[i][j][k] in [20,21,22,23,30,31,32,33,40,41,42,43]:
+                                                        field.Field.MAP_LIST[i][j][k] += 40
+                                                    if field.Field.MAP_LIST[i][j][k] in [90,91,92,93,100,101,102,103,110,111,112,113]:
+                                                        field.Field.MAP_LIST[i][j][k] -= 30
+                                                    if field.Field.MAP_LIST[i][j][k] == 106:
+                                                        field.Field.MAP_LIST[i][j][k] = 107
+                            # if field.Field.MAP5[6][1] == 13:
+
+                                                field.MAP5_flg2 = 1
+                                                Game.field.new_field = field.Field.MAP_LIST[i]
+                                                Game.field.read_map_info()
+                                                Game.field.draw()  
+                                                pygame.display.update()                    
+                                
+                                
+                                
+                                
+                                
+                                
+                                
                                 # Player.TSUNAMI_flg = 1
                                 # Player.end_time = 0
                                 # Player.start_time = time.time()
@@ -585,7 +662,22 @@ class Player(Character):
             #             Game.field.read_map_info
             #             Game.field.draw()  
             #             pygame.display.update()
-            
+            if Game.field.QUAKE == 4: 
+                if    field.Field.MAP2[9][8] == 74:
+                    Game.surface.blit(selif_font.render("お兄さん",
+                                        True, (255, 255, 255)), (1000, 230))
+                    Game.surface.blit(selif_font.render("火事が少しずつ大きくなってないか？",
+                                        True, (255, 255, 255)), (1000, 280))
+                    
+                if   field.Field.MAP2[9][8] == 94:
+                                Game.surface.blit(selif_font.render("お父さん",
+                                                                        True, (255, 255, 255)), (1000, 230))
+                                Game.surface.blit(selif_font.render("火事だー早く逃げるぞー",
+                                                                        True, (255, 255, 255)), (1000, 280))
+                                Game.surface.blit(selif_font.render("お母さん",
+                                                                        True, (255, 255, 255)), (1000, 330))
+                                Game.surface.blit(selif_font.render("逃げるわよ",
+                                                                        True, (255, 255, 255)), (1000, 380))                
             if not self.check_chara_move(posx, posy, dx, dy, Player.TOUBOKU_LIST_R): 
                 if Player.TSUNAMI_flg == 0:        
                     if field.Field.MAP_LIST[Game.field.map_no][posy][posx] == 34:  #左
@@ -638,7 +730,7 @@ class Player(Character):
                     Game.phase = Phase.GAME_CLEAR
 
             for cha in Game.charas:
-                if not cha.coli_flg == 7:
+                if cha.coli_flg in [0,1,2,3,4,5,6]:
                     if not self.check_chara_move(posx, posy, dx, dy, Player.QUAKE_LIST) and Player.QUAKE_flg == 1:
                             continue
                     else:   
@@ -668,10 +760,11 @@ class Player(Character):
                                                                 True, (255, 255, 255)), (1000, 230))
                         if self.selif_flg >= 1:
                 
-                                Game.surface.blit(selif_font.render(selif.list[cha.coli_flg][Player.selif_num],
+                                Game.surface.blit(selif_font.render(selif.list[cha.coli_flg][Player.selif_flg],
                                                                     True, (255, 255, 255)), (1000, 280))
                                 epi_flg_list[7-cha.coli_flg] = 0
-
+                                if Game.field.map_no == 2:
+                                    Chara.epi_flg_list2[7-cha.coli_flg] = 0
                                 if Game.on_enterkey() and not self.enter_key_pressed:
                                     self.selif_flg = 0
                                     self.enter_key_pressed = True

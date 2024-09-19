@@ -111,6 +111,7 @@ def basic_draw():
                     Game.field.QUAKE = 2
                     print(Game.field.QUAKE)
     if Game.field.QUAKE == 2:
+        
             if  Game.field.map_no ==1:
                     for i in CharaList.CHARA_LIST:
                         Game.charas = []
@@ -192,6 +193,7 @@ def basic_draw():
                         if Field.MAP1[i][j]== 76:
                             Field.MAP1[i][j]= 79
                 print(Game.field.QUAKE)
+                
     if Game.field.QUAKE == 4:  
         if Game.field.map_no ==1:
                 Player.selif_flg =2
@@ -213,7 +215,11 @@ def basic_draw():
                         if Field.MAP2[i][j]== 74:
                             Field.MAP2[i][j]= 79
                         if Field.MAP2[i][j]== 105:
-                            Field.MAP2[i][j]= 94    
+                            Field.MAP2[i][j]= 94   
+                        if Field.MAP2[i][j]== 106:
+                            Field.MAP2[i][j]= 33 
+                        if Field.MAP2[i][j]== 107:
+                            Field.MAP2[i][j]= 73 
                 Game.field.QUAKE = 5
                 
                 print(Game.field.QUAKE)
@@ -257,7 +263,7 @@ def basic_draw():
                 Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
                 Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
                 Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
-                Game.field.QUAKE = 6
+                Game.field.QUAKE = 7
                 
                 print(Game.field.QUAKE)            
                 
