@@ -704,7 +704,7 @@ class Player(Character):
                                                     if field.Field.MAP_LIST[i][l][14 - j] == 8:
                                                         field.Field.MAP_LIST[i][l][14 - j] = 59
                                                     if field.Field.MAP_LIST[i][l][14 - j] == 11:
-                                                        field.Field.MAP_LIST[i][l][14 - j] = 53 
+                                                        field.Field.MAP_LIST[i][l][14 - j] = 143 
                                                     if field.Field.MAP_LIST[i][l][14 - j] in [95,96]:
                                                         field.Field.MAP_LIST[i][l][14 - j] += 2       
                                                     if field.Field.MAP_LIST[i][l][14 - j] in [65,66,67,68]:
@@ -811,6 +811,8 @@ class Player(Character):
                                                             field.Field.MAP_LIST[i][j][10 - k] = 56
                                                         if field.Field.MAP_LIST[i][j][10 - k] == 48:
                                                             field.Field.MAP_LIST[i][j][10 - k] = 58
+                                                        if field.Field.MAP_LIST[i][j][10 - k] in [145,146]:
+                                                            field.Field.MAP_LIST[i][j][10 - k] += 2
                                                         if not i == 2:
                                                             if field.Field.MAP_LIST[i][j][10 - k] == 52:
                                                                 field.Field.MAP_LIST[i][j][10 - k] = 3
@@ -829,7 +831,9 @@ class Player(Character):
                                                         if field.Field.MAP_LIST[i][j][10 - k] in [17,85,99] :
                                                             field.Field.MAP_LIST[i][j][10 - k] = 55
                                                         if field.Field.MAP_LIST[i][j][10 - k] == 75:
-                                                            field.Field.MAP_LIST[i][j][10 - k] = 55    
+                                                            field.Field.MAP_LIST[i][j][10 - k] = 55 
+                                                        if field.Field.MAP_LIST[i][j][10 - k]  in [152,154]:
+                                                            field.Field.MAP_LIST[i][j][10 - k] += 1        
                                                         if i == 2: 
                                                             if field.Field.MAP_LIST[i][j][10 - k] == 10:
                                                                 field.Field.MAP_LIST[i][j][10 - k] = 52
@@ -839,7 +843,7 @@ class Player(Character):
                                                         if field.Field.MAP_LIST[i][j][10 - k] == 8:
                                                             field.Field.MAP_LIST[i][j][10 - k] = 59
                                                         if field.Field.MAP_LIST[i][j][10 - k] == 11:
-                                                            field.Field.MAP_LIST[i][j][10 - k] = 53 
+                                                            field.Field.MAP_LIST[i][j][10 - k] = 143
                                                         if field.Field.MAP_LIST[i][j][10 - k] in [95,96]:
                                                             field.Field.MAP_LIST[i][j][10 - k] += 2       
                                                         if field.Field.MAP_LIST[i][j][10 - k] in [65,66,67,68]:
@@ -864,6 +868,8 @@ class Player(Character):
                                                             field.Field.MAP_LIST[i][j - 1][10 - k] = 56
                                                         if field.Field.MAP_LIST[i][j - 1][10 - k] == 48:
                                                             field.Field.MAP_LIST[i][j - 1][10 - k] = 58
+                                                        if field.Field.MAP_LIST[i][j -1][10 - k] in [145,146]:
+                                                            field.Field.MAP_LIST[i][j -1][10 - k] += 2   
                                                         if not i == 2:
                                                             if field.Field.MAP_LIST[i][j - 1][10 - k] == 52:
                                                                 field.Field.MAP_LIST[i][j - 1][10 - k] = 3
@@ -881,7 +887,11 @@ class Player(Character):
                                                         if field.Field.MAP_LIST[i][j - 1][10 - k] in [17,85,99] :
                                                             field.Field.MAP_LIST[i][j - 1][10 - k] = 55
                                                         if field.Field.MAP_LIST[i][j - 1][10 - k] == 75:
-                                                            field.Field.MAP_LIST[i][j - 1][10 - k] = 55    
+                                                            field.Field.MAP_LIST[i][j - 1][10 - k] = 55 
+                                                        if field.Field.MAP_LIST[i][j - 1][10 - k] == 154:
+                                                            field.Field.MAP_LIST[i][j - 1][10 - k] = 155
+                                                        if field.Field.MAP_LIST[i][j][10 - k]  in [152,154]:
+                                                            field.Field.MAP_LIST[i][j][10 - k] += 1  
                                                         if i == 2: 
                                                             if field.Field.MAP_LIST[i][j - 1][10 - k] == 10:
                                                                 field.Field.MAP_LIST[i][j - 1][10 - k] = 52
@@ -891,16 +901,16 @@ class Player(Character):
                                                         if field.Field.MAP_LIST[i][j - 1][10 - k] == 8:
                                                             field.Field.MAP_LIST[i][j - 1][10 - k] = 59
                                                         if field.Field.MAP_LIST[i][j - 1][10 - k] == 11:
-                                                            field.Field.MAP_LIST[i][j - 1][10 - k] = 53 
+                                                            field.Field.MAP_LIST[i][j - 1][10 - k] = 143
                                                         if field.Field.MAP_LIST[i][j - 1][10 - k] in [95,96]:
                                                             field.Field.MAP_LIST[i][j - 1][10 - k] += 2       
                                                         if field.Field.MAP_LIST[i][j - 1][10 - k] in [65,66,67,68]:
                                                             field.Field.MAP_LIST[i][j - 1][10 - k] += 49           
                                                         if not  i == 9:     
-                                                            if field.Field.MAP_LIST[i][j][10 - k] in [20,21,22,23,30,31,32,33,40,41,42,43]:
-                                                                field.Field.MAP_LIST[i][j][10 - k] += 40
-                                                            if field.Field.MAP_LIST[i][j][10 - k] in [90,91,92,93,100,101,102,103,110,111,112,113]:
-                                                                field.Field.MAP_LIST[i][j][10 - k] -= 30
+                                                            if field.Field.MAP_LIST[i][j - 1][10 - k] in [20,21,22,23,30,31,32,33,40,41,42,43]:
+                                                                field.Field.MAP_LIST[i][j - 1][10 - k] += 40
+                                                            if field.Field.MAP_LIST[i][j -1][10 - k] in [90,91,92,93,100,101,102,103,110,111,112,113]:
+                                                                field.Field.MAP_LIST[i][j -1][10 - k] -= 30
                                                         if field.Field.MAP_LIST[i][j - 1][10 - k] in [118,120,122,124,127,130,132]:
                                                             field.Field.MAP_LIST[i][j - 1][10 - k] += 1
                                                         if field.Field.MAP_LIST[i][j - 1][10 - k] == 104:
@@ -948,10 +958,7 @@ class Player(Character):
                                                                 field.Field.MAP_LIST[i][j][12 + k] += 2       
                                                             if field.Field.MAP_LIST[i][j][12 + k] in [65,66,67,68]:
                                                                 field.Field.MAP_LIST[i][j][12 + k] += 49           
-                                                            if field.Field.MAP_LIST[i][j][12 + k] in [20,21,22,23,30,31,32,33,40,41,42,43]:
-                                                                field.Field.MAP_LIST[i][j][12 + k] += 40
-                                                            if field.Field.MAP_LIST[i][j][12 + k] in [90,91,92,93,100,101,102,103,110,111,112,113]:
-                                                                field.Field.MAP_LIST[i][j][12 + k] -= 30
+                                                            
                                                             if field.Field.MAP_LIST[i][j][12 + k] in [118,120,122,124,127,130,132]:
                                                                 field.Field.MAP_LIST[i][j][12 + k] += 1
                                                             if field.Field.MAP_LIST[i][j][12 + k] == 104:
@@ -999,10 +1006,7 @@ class Player(Character):
                                                                 field.Field.MAP_LIST[i][j - 1][12 + k] += 2       
                                                             if field.Field.MAP_LIST[i][j - 1][12 + k] in [65,66,67,68]:
                                                                 field.Field.MAP_LIST[i][j - 1][12 + k] += 49           
-                                                            if field.Field.MAP_LIST[i][j - 1][12 + k] in [20,21,22,23,30,31,32,33,40,41,42,43]:
-                                                                field.Field.MAP_LIST[i][j - 1][12 + k] += 40
-                                                            if field.Field.MAP_LIST[i][j - 1][12 + k] in [90,91,92,93,100,101,102,103,110,111,112,113]:
-                                                                field.Field.MAP_LIST[i][j - 1][12 + k] -= 30
+                                                           
                                                             if field.Field.MAP_LIST[i][j - 1][12 + k] in [118,120,122,124,127,130,132]:
                                                                 field.Field.MAP_LIST[i][j - 1][12 + k] += 1
                                                             if field.Field.MAP_LIST[i][j - 1][12 + k] == 104:
@@ -1256,8 +1260,74 @@ class Player(Character):
                             field.Field.chip_list[y][x].set_chip_no(0)
                     pygame.mixer.music.load('bgm.mp3')
                     pygame.display.update()
-
-
+            if not self.check_chara_move(posx, posy, dx, dy, [152,154]): 
+                
+                if field.Field.MAP_LIST[9][9][0] == 144:  
+                    field.Field.MAP_LIST[9][13][0] = 149 
+                    field.Field.MAP_LIST[9][13][1] = 145  
+                    field.Field.MAP_LIST[9][12][0] = 151    
+                    field.Field.MAP_LIST[9][12][1] = 151
+                    field.Field.MAP_LIST[9][12][2] = 146
+                    field.Field.MAP_LIST[9][11][0] = 151 
+                    field.Field.MAP_LIST[9][11][1] = 151    
+                    field.Field.MAP_LIST[9][11][2] = 149
+                    field.Field.MAP_LIST[9][11][3] = 145 
+                    field.Field.MAP_LIST[9][10][0] = 151  
+                    field.Field.MAP_LIST[9][10][1] = 151    
+                    field.Field.MAP_LIST[9][10][2] = 151
+                    field.Field.MAP_LIST[9][10][3] = 151
+                    field.Field.MAP_LIST[9][9][0] = 151  
+                    field.Field.MAP_LIST[9][9][1] = 151    
+                    field.Field.MAP_LIST[9][9][2] = 151
+                    field.Field.MAP_LIST[9][9][3] = 151
+                    field.Field.MAP_LIST[9][8][0] = 151  
+                    field.Field.MAP_LIST[9][8][1] = 151    
+                    field.Field.MAP_LIST[9][8][2] = 151
+                    field.Field.MAP_LIST[9][8][3] = 151
+                    field.Field.MAP_LIST[9][7][0] = 150  
+                    field.Field.MAP_LIST[9][7][1] = 150    
+                    field.Field.MAP_LIST[9][7][2] = 150
+                    field.Field.MAP_LIST[9][7][3] = 150
+                    Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]             
+                    Game.field.read_map_info
+                    Game.field.draw()  
+                    self.hp -= 5 
+                    Player.TOUBOKU_flg = 1
+                    Player.start_time_QUAKE = time.time()
+            if not self.check_chara_move(posx, posy, dx, dy, [153,155]): 
+                
+                if field.Field.MAP_LIST[9][9][0] == 144:  
+                    field.Field.MAP_LIST[9][13][0] = 149 
+                    field.Field.MAP_LIST[9][13][1] = 147  
+                    field.Field.MAP_LIST[9][12][0] = 151    
+                    field.Field.MAP_LIST[9][12][1] = 151
+                    field.Field.MAP_LIST[9][12][2] = 148
+                    field.Field.MAP_LIST[9][11][0] = 151 
+                    field.Field.MAP_LIST[9][11][1] = 151    
+                    field.Field.MAP_LIST[9][11][2] = 149
+                    field.Field.MAP_LIST[9][11][3] = 147 
+                    field.Field.MAP_LIST[9][10][0] = 151  
+                    field.Field.MAP_LIST[9][10][1] = 151    
+                    field.Field.MAP_LIST[9][10][2] = 151
+                    field.Field.MAP_LIST[9][10][3] = 151
+                    field.Field.MAP_LIST[9][9][0] = 151  
+                    field.Field.MAP_LIST[9][9][1] = 151    
+                    field.Field.MAP_LIST[9][9][2] = 151
+                    field.Field.MAP_LIST[9][9][3] = 151
+                    field.Field.MAP_LIST[9][8][0] = 151  
+                    field.Field.MAP_LIST[9][8][1] = 151    
+                    field.Field.MAP_LIST[9][8][2] = 151
+                    field.Field.MAP_LIST[9][8][3] = 151
+                    field.Field.MAP_LIST[9][7][0] = 150  
+                    field.Field.MAP_LIST[9][7][1] = 150    
+                    field.Field.MAP_LIST[9][7][2] = 150
+                    field.Field.MAP_LIST[9][7][3] = 150
+                    Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]             
+                    Game.field.read_map_info
+                    Game.field.draw()  
+                    self.hp -= 5 
+                    Player.TOUBOKU_flg = 1
+                    Player.start_time_QUAKE = time.time()
 
             if Player.kagi_flg == 1:
                 if not self.check_chara_move(posx, posy, dx, dy, Player.DOOR_LIST):
