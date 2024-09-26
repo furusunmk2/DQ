@@ -112,6 +112,22 @@ def basic_draw():
                     print(Game.field.QUAKE)
     if Game.field.QUAKE == 2:
         
+            if  Game.field.map_no ==4:
+                    for i in CharaList.CHARA_LIST:
+                        Game.charas = []
+                        if i == 0 or i == 1 or i == 2 or i == 3 or i == 4: 
+                            i[2] = 1
+                            i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78,  80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+                
+                    Game.charas.append(Chara((5, 2), CharaList.CHA_NO_FATHER))
+                    Game.charas.append(Chara((6, 2), CharaList.CHA_NO_MOTHER))
+                    Game.charas.append(Chara((5, 1), CharaList.CHA_NO_DAUGHTER))
+                    Game.field.QUAKE = 3
+                    print(Game.field.QUAKE)                
+                    
+                    
+    if Game.field.QUAKE == 3:
+        
             if  Game.field.map_no ==1:
                     for i in CharaList.CHARA_LIST:
                         Game.charas = []
@@ -126,10 +142,10 @@ def basic_draw():
                     Game.charas.append(Chara((13, 4), CharaList.CHA_NO_GIRL))
                     Game.charas.append(Chara((7, 5), CharaList.CHA_NO_MAN))
                     Game.charas.append(Chara((7, 5), CharaList.CHA_NO_WOMAN))
-                    Game.field.QUAKE = 3
+                    Game.field.QUAKE = 4
                     print(Game.field.QUAKE)
 
-    if Game.field.QUAKE == 3:  
+    if Game.field.QUAKE == 4:  
         if Game.field.map_no ==2:
                 for i in CharaList.CHARA_LIST:
                     if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
@@ -185,7 +201,7 @@ def basic_draw():
                 Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
                 Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
                 Player.MAP2_flg =1
-                Game.field.QUAKE = 4
+                Game.field.QUAKE = 5
                 Field.MAP1[4][5] = 99
                 Field.MAP1[4][4] = 99
                 for i in range (14):
@@ -194,7 +210,7 @@ def basic_draw():
                             Field.MAP1[i][j]= 79
                 print(Game.field.QUAKE)
                 
-    if Game.field.QUAKE == 4:  
+    if Game.field.QUAKE == 5:  
         if Game.field.map_no ==1:
                 Player.selif_flg =2
                 for i in CharaList.CHARA_LIST:
@@ -220,13 +236,13 @@ def basic_draw():
                             Field.MAP2[i][j]= 33 
                         if Field.MAP2[i][j]== 107:
                             Field.MAP2[i][j]= 73 
-                Game.field.QUAKE = 5
+                Game.field.QUAKE = 6
                 
                 print(Game.field.QUAKE)
-    if Game.field.QUAKE == 5: 
+    if Game.field.QUAKE == 6: 
         if Game.field.map_no ==2:
             Game.charas = []
-            Game.field.QUAKE = 4
+            Game.field.QUAKE = 5
         if Game.field.map_no ==10:
                 Player.selif_flg =2
                 for i in CharaList.CHARA_LIST:
@@ -242,9 +258,9 @@ def basic_draw():
                 Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
                 Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
                 Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
-                Game.field.QUAKE = 6
+                Game.field.QUAKE = 7
 
-    if Game.field.QUAKE == 6: 
+    if Game.field.QUAKE == 7: 
         if Game.field.map_no ==1:
             Game.charas = []
         if Game.field.map_no ==11:
@@ -262,10 +278,30 @@ def basic_draw():
                 Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
                 Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
                 Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
-                Game.field.QUAKE = 7
+                Game.field.QUAKE = 8
                 
                 print(Game.field.QUAKE)            
+    if Game.field.QUAKE == 8: 
+        if Game.field.map_no ==10:
+            Game.charas = []
+        if Game.field.map_no ==11:
+                Player.selif_flg =2
+                for i in CharaList.CHARA_LIST:
+                    if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
+                        i[2] = 1
+                        i[5] = []
+                        i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+                Game.charas = []
+                Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
+                Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
+                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_DAUGHTER))
+                Game.charas.append(Chara((12, 7), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
+                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
+                Game.field.QUAKE = 8
                 
+                print(Game.field.QUAKE)              
     for m_no,chara in enumerate(Game.charas):
        
         if Game.field.map_no ==  4:
