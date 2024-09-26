@@ -119,13 +119,13 @@ def basic_draw():
                             i[2] = 1
                             i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78,  80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
                 
-                    Game.charas.append(Chara((8, 7), CharaList.CHA_NO_FATHER))
-                    Game.charas.append(Chara((10, 6), CharaList.CHA_NO_MOTHER))
-                    Game.charas.append(Chara((10, 7), CharaList.CHA_NO_DAUGHTER))
-                    Game.charas.append(Chara((13, 7), CharaList.CHA_NO_BOY))
-                    Game.charas.append(Chara((13, 6), CharaList.CHA_NO_GIRL))
-                    Game.charas.append(Chara((7, 7), CharaList.CHA_NO_MAN))
-                    Game.charas.append(Chara((7, 6), CharaList.CHA_NO_WOMAN))
+                    Game.charas.append(Chara((8, 5), CharaList.CHA_NO_FATHER))
+                    Game.charas.append(Chara((10, 5), CharaList.CHA_NO_MOTHER))
+                    Game.charas.append(Chara((10, 5), CharaList.CHA_NO_DAUGHTER))
+                    Game.charas.append(Chara((13, 5), CharaList.CHA_NO_BOY))
+                    Game.charas.append(Chara((13, 4), CharaList.CHA_NO_GIRL))
+                    Game.charas.append(Chara((7, 5), CharaList.CHA_NO_MAN))
+                    Game.charas.append(Chara((7, 5), CharaList.CHA_NO_WOMAN))
                     Game.field.QUAKE = 3
                     print(Game.field.QUAKE)
 
@@ -137,12 +137,12 @@ def basic_draw():
                         i[5] = []
                         i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
                 Game.charas = []
-                Game.charas.append(Chara((8, 7), CharaList.CHA_NO_FATHER))
+                Game.charas.append(Chara((8, 5), CharaList.CHA_NO_FATHER))
                 Game.charas.append(Chara((10, 6), CharaList.CHA_NO_MOTHER))
-                Game.charas.append(Chara((10, 7), CharaList.CHA_NO_DAUGHTER))
-                Game.charas.append(Chara((12, 7), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((10, 4), CharaList.CHA_NO_DAUGHTER))
+                Game.charas.append(Chara((12, 5), CharaList.CHA_NO_BOY))
                 Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
-                Game.charas.append(Chara((7, 7), CharaList.CHA_NO_MAN))
+                Game.charas.append(Chara((7, 5), CharaList.CHA_NO_MAN))
                 Game.charas.append(Chara((7, 6), CharaList.CHA_NO_WOMAN))
                 Game.charas.append(Chara((12, 12), CharaList.CHA_NO_FIRE))
                 Game.charas.append(Chara((11, 12), CharaList.CHA_NO_FIRE))
@@ -205,9 +205,9 @@ def basic_draw():
                 Game.charas = []
                 Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
                 Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
-                Game.charas.append(Chara((10, 7), CharaList.CHA_NO_DAUGHTER))
-                Game.charas.append(Chara((10, 7), CharaList.CHA_NO_BOY))
-                Game.charas.append(Chara((10, 6), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((10, 5), CharaList.CHA_NO_DAUGHTER))
+                Game.charas.append(Chara((10, 5), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((10, 5), CharaList.CHA_NO_GIRL))
                 Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
                 Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
                 for i in range (14):
@@ -243,8 +243,7 @@ def basic_draw():
                 Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
                 Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
                 Game.field.QUAKE = 6
-                
-                print(Game.field.QUAKE)
+
     if Game.field.QUAKE == 6: 
         if Game.field.map_no ==1:
             Game.charas = []

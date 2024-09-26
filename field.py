@@ -8,6 +8,7 @@ class Field:
     mapnumber = 1
     QUAKE = 0
     MAP5_flg2 = 0
+    
     # 関数：コンストラクタ
     def __init__(self):
         # Ａ－１９Chipから）フィールドのチップのリスト
