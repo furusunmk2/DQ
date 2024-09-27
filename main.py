@@ -329,12 +329,12 @@ def basic_draw():
     Game.player.draw()
     # Ｄ－５１Playerから）レベルの描画（左空白埋めで５桁）
     level_str = str(Game.player.level).rjust(5)
-    level_render = smallfont.render(f'ゆたこあ',
+    level_render = item_font.render(f'ミギカタ　アガル',
                                     True, (255, 255, 255))
     Game.surface.blit(level_render, (1000, 30))
     # Ｄ－５２）HPの描画（左空白埋めで５桁）
     hp_str = str(Game.player.hp).rjust(5)
-    hp_render = smallfont.render(f'   HP:{hp_str}',
+    hp_render = item_font.render(f' HP:{hp_str}',
                                     True, (255, 255, 255))
     Game.surface.blit(hp_render, (1000, 80))
     #アイテム表示
