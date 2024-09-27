@@ -12,6 +12,7 @@ class Chara(Character):
     MOVE_DIR_LIST = [(1, 0), (-1, 0), (0, 1), (0, -1)]
     MOVE_DIR_LIST2 = [(-1, 0), (0, 1), (0, -1)]
     MOVE_DIR_LIST_FIRE = [(1, 0), (-1, 0),  (0, -1)]
+    MOVE_DIR_LIST_11 = [ (-1, 0),  (0, -1)]
     DIR_flg = 0
     FIRE_DIR = 0
     epi_flg_list2=[1,"","","","","","",""]
@@ -115,18 +116,27 @@ class Chara(Character):
                 elif Game.field.map_no == 1: 
                     if Game.player.map1_flg == 0:
                         self.move_x, self.move_y = (1, 0)
-                    elif Game.player.map1_flg == 1:
+                    elif Game.player.map1_flg > 1:
                         if 0 <= self.pos[1] <= 13 :
-                            if not self.check_chara_move(self.pos[0],self.pos[1], self.dxy[0], self.dxy[1], [99]):
+                            if not self.check_chara_move(self.pos[0],self.pos[1], self.dxy[0], self.dxy[1], [99,158]):
                                 self.move_x, self.move_y = (0, -1)
                             
                             else:
                                 self.move_x, self.move_y = (-1, 0)
-                        
-                     
+                elif Game.field.map_no == 10: 
+                        self.move_x, self.move_y = (1, 0)        
+                elif Game.field.map_no == 11: 
+                        self.move_x, self.move_y = random.choice(Chara.MOVE_DIR_LIST_11)   
+                elif Game.field.map_no == 8: 
+                        self.move_x, self.move_y = (-1, 0)        
+                elif Game.field.map_no == 7: 
+                        self.move_x, self.move_y = random.choice(Chara.MOVE_DIR_LIST)    
+            
                 elif Game.field.map_no == 2:
                     if int("".join(map(str,self.epi_flg_list2)))== 10000000 :
-                        Game.player.map1_flg = 1
+                        field.Field.MAP1[4][5] = 99
+                        field.Field.MAP1[4][4] = 99
+                        Game.player.map1_flg += 1
                         if  self.chara_no in [0,1,2,3,4,5,6]:
                             self.move_x, self.move_y = (-1, 0)
                         else:
@@ -162,14 +172,24 @@ class Chara(Character):
                 dy += Character.MOVE_STEP * self.move_y
                 if self.chara_no == 8:
                     if 0<= posy <=14 and 0<= posx <= 15:
-                        if field.Field.MAP2[posy][posx] in [74,8]:
+                        if field.Field.MAP2[posy][posx] in [8]:
                             field.Field.MAP2[posy][posx] = 69
+                            Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]
+                            Game.field.read_map_info()
+                            Game.field.draw() 
+                        if field.Field.MAP2[posy][posx] in [74]:
+                            field.Field.MAP2[posy][posx] = 79
+                            Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]
+                            Game.field.read_map_info()
+                            Game.field.draw()     
+                        if field.Field.MAP2[posy][posx] in [106]:
+                            field.Field.MAP2[posy][posx] = 103
                             Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]
                             Game.field.read_map_info()
                             Game.field.draw()  
                             pygame.display.update()
-                        if field.Field.MAP2[posy][posx] ==  105:
-                            field.Field.MAP2[posy][posx] = 94
+                        if field.Field.MAP2[posy][posx] ==  138:
+                            field.Field.MAP2[posy][posx] = 156
                             Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]
                             Game.field.read_map_info()
                             Game.field.draw()  
@@ -199,21 +219,23 @@ class Chara(Character):
                 # Ｊ－１３３）重なった場合
                 if chara_rect.colliderect(player_rect):
                     self.coli_flg = self.chara_no
-                    return
+                    if self.chara_no == 8 :
+                        return
+                    
                     
                 else:
                     self.coli_flg = 7
                     # Ｉ－１１４）加算後の値で、位置を計算
-                    posx, posy, dx, dy = self.calc_chara_pos(posx, posy, dx, dy)
-                    # Ｉ－１１５）マップ移動チェックで移動可能な場合
-                    # ※Charaクラスのマップ移動チェックは用意済み
-                    # Playerと同様だが、マップ移動してしまう場合は移動不可としている
-                    if self.check_map_move(posx, posy, dx, dy):
-                        # Ｉ－１１６）移動可能チェックで移動可能の場合
-                        if self.check_chara_move(posx, posy, dx, dy, self.unmovable_chips):
-                            # Ｉ－１１７）移動後の位置を設定する（移動不可なら位置を変更しない）
-                            self.set_pos(posx, posy)
-                            self.set_dpos(dx, dy)
+                posx, posy, dx, dy = self.calc_chara_pos(posx, posy, dx, dy)
+                # Ｉ－１１５）マップ移動チェックで移動可能な場合
+                # ※Charaクラスのマップ移動チェックは用意済み
+                # Playerと同様だが、マップ移動してしまう場合は移動不可としている
+                if self.check_map_move(posx, posy, dx, dy):
+                    # Ｉ－１１６）移動可能チェックで移動可能の場合
+                    if self.check_chara_move(posx, posy, dx, dy, self.unmovable_chips):
+                        # Ｉ－１１７）移動後の位置を設定する（移動不可なら位置を変更しない）
+                        self.set_pos(posx, posy)
+                        self.set_dpos(dx, dy)
 
                 # Ｉ－１１８）残り移動回数を１減算
                 self.remain_move_time -= 1
@@ -229,13 +251,13 @@ class Chara(Character):
                     self.next_move_count = Game.count + self.move_interval
         
         # Ｊ－１３２Fieldから）モンスターとプレイヤーの四角を取得
-        chara_rect = self.get_rect()
+        # chara_rect = self.get_rect()
         
-        player_rect = Game.player.get_rect()
-        # Ｊ－１３３）重なった場合キャラは動かなくなる
-        if chara_rect.colliderect(player_rect):
-            self.move_x, self.move_y = 0, 0
-            self.coli_flg = self.chara_no
+        # player_rect = Game.player.get_rect()
+        # # Ｊ－１３３）重なった場合キャラは動かなくなる
+        # if chara_rect.colliderect(player_rect):
+        #     self.move_x, self.move_y = 0, 0
+        #     self.coli_flg = self.chara_no
  
         #     # Ｊ－１３４）モンスターを画面外に
         #     # （画面外に設定すると、移動チェックで出てこれなくなる）

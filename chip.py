@@ -172,6 +172,10 @@ class Chip(Square):
                 Game.read_image_for_square('image/chip153.png'),
                 Game.read_image_for_square('image/chip154.png'),
                 Game.read_image_for_square('image/chip155.png'),
+                Game.read_image_for_square('image/chip156.png'),
+                Game.read_image_for_square('image/chip157.png'),
+                Game.read_image_for_square('image/chip158.png'),
+                Game.read_image_for_square('image/chip159.png'),
             )
     
     # チップ番号設定

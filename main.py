@@ -21,6 +21,7 @@ pygame.display.set_caption('*** Sample RPG ***')
 smallfont = pygame.font.SysFont('Courier', 36)   # 小さい文字用のフォント
 largefont = pygame.font.SysFont(None, 120)   # 大きい文字用のフォント
 item_font = pygame.font.Font('C:/Windows/Fonts/meiryo.ttc', 24)
+selif_font = pygame.font.Font('C:/Windows/Fonts/meiryo.ttc', 24)
 # mac ver
 # smallfont = pygame.font.Font('/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc', 24)
 # largefont = pygame.font.Font('/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc', 24)
@@ -109,24 +110,9 @@ def basic_draw():
                     Game.charas.append(Chara((7, 7), CharaList.CHA_NO_MAN))
                     Game.charas.append(Chara((7, 7), CharaList.CHA_NO_WOMAN))        
                     Game.field.QUAKE = 2
-                    print(Game.field.QUAKE)
-    if Game.field.QUAKE == 2:
-        
-            if  Game.field.map_no ==4:
-                    for i in CharaList.CHARA_LIST:
-                        Game.charas = []
-                        if i == 0 or i == 1 or i == 2 or i == 3 or i == 4: 
-                            i[2] = 1
-                            i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78,  80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
                 
-                    Game.charas.append(Chara((5, 2), CharaList.CHA_NO_FATHER))
-                    Game.charas.append(Chara((6, 2), CharaList.CHA_NO_MOTHER))
-                    Game.charas.append(Chara((5, 1), CharaList.CHA_NO_DAUGHTER))
-                    Game.field.QUAKE = 3
-                    print(Game.field.QUAKE)                
                     
-                    
-    if Game.field.QUAKE == 3:
+    if Game.field.QUAKE == 2:
         
             if  Game.field.map_no ==1:
                     for i in CharaList.CHARA_LIST:
@@ -142,10 +128,10 @@ def basic_draw():
                     Game.charas.append(Chara((13, 4), CharaList.CHA_NO_GIRL))
                     Game.charas.append(Chara((7, 5), CharaList.CHA_NO_MAN))
                     Game.charas.append(Chara((7, 5), CharaList.CHA_NO_WOMAN))
-                    Game.field.QUAKE = 4
-                    print(Game.field.QUAKE)
+                    Game.field.QUAKE = 3
+              
 
-    if Game.field.QUAKE == 4:  
+    if Game.field.QUAKE == 3:  
         if Game.field.map_no ==2:
                 for i in CharaList.CHARA_LIST:
                     if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
@@ -201,48 +187,51 @@ def basic_draw():
                 Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
                 Game.charas.append(Chara((12, 11), CharaList.CHA_NO_FIRE))
                 Player.MAP2_flg =1
-                Game.field.QUAKE = 5
-                Field.MAP1[4][5] = 99
-                Field.MAP1[4][4] = 99
+                Game.field.QUAKE = 4
+                
                 for i in range (14):
                     for j in range(15):
                         if Field.MAP1[i][j]== 76:
                             Field.MAP1[i][j]= 79
-                print(Game.field.QUAKE)
+                    if Field.MAP1[i][j]== 138:
+                            Field.MAP1[i][j]= 156
                 
-    if Game.field.QUAKE == 5:  
+                
+    if Game.field.QUAKE == 4 :
         if Game.field.map_no ==1:
-                Player.selif_flg =2
-                for i in CharaList.CHARA_LIST:
-                    if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
-                        i[2] = 1
-                        i[5] = []
-                        i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
-                Game.charas = []
-                Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
-                Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
-                Game.charas.append(Chara((10, 5), CharaList.CHA_NO_DAUGHTER))
-                Game.charas.append(Chara((10, 5), CharaList.CHA_NO_BOY))
-                Game.charas.append(Chara((10, 5), CharaList.CHA_NO_GIRL))
-                Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
-                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
-                for i in range (14):
-                    for j in range(15):
-                        if Field.MAP2[i][j]== 74:
-                            Field.MAP2[i][j]= 79
-                        if Field.MAP2[i][j]== 105:
-                            Field.MAP2[i][j]= 94   
-                        if Field.MAP2[i][j]== 106:
-                            Field.MAP2[i][j]= 33 
-                        if Field.MAP2[i][j]== 107:
-                            Field.MAP2[i][j]= 73 
-                Game.field.QUAKE = 6
-                
-                print(Game.field.QUAKE)
-    if Game.field.QUAKE == 6: 
+            if Game.player.map1_flg > 1:
+                    Player.selif_flg =2
+                    for i in CharaList.CHARA_LIST:
+                        if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
+                            i[2] = 1
+                            i[5] = []
+                            i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+                    Game.charas = []
+                    Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
+                    Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
+                    Game.charas.append(Chara((10, 5), CharaList.CHA_NO_DAUGHTER))
+                    Game.charas.append(Chara((10, 5), CharaList.CHA_NO_BOY))
+                    Game.charas.append(Chara((10, 5), CharaList.CHA_NO_GIRL))
+                    Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
+                    Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
+                    for i in range (14):
+                        for j in range(15):
+                            if Field.MAP2[i][j]== 74:
+                                Field.MAP2[i][j]= 79
+                            if Field.MAP2[i][j]== 105:
+                                Field.MAP2[i][j]= 94   
+                            if Field.MAP2[i][j]== 106:
+                                Field.MAP2[i][j]= 33 
+                            if Field.MAP2[i][j]== 107:
+                                Field.MAP2[i][j]= 73 
+                    Game.field.QUAKE = 5
+            else:
+                Game.charas = []          
+                Game.field.QUAKE = 3
+    if Game.field.QUAKE == 5: 
         if Game.field.map_no ==2:
             Game.charas = []
-            Game.field.QUAKE = 5
+            Game.field.QUAKE = 4
         if Game.field.map_no ==10:
                 Player.selif_flg =2
                 for i in CharaList.CHARA_LIST:
@@ -251,16 +240,16 @@ def basic_draw():
                         i[5] = []
                         i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
                 Game.charas = []
-                Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
+                Game.charas.append(Chara((6, 7), CharaList.CHA_NO_FATHER))
                 Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
-                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_DAUGHTER))
+                Game.charas.append(Chara((5, 5), CharaList.CHA_NO_DAUGHTER))
                 Game.charas.append(Chara((12, 7), CharaList.CHA_NO_BOY))
-                Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((12, 5), CharaList.CHA_NO_GIRL))
                 Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
-                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
-                Game.field.QUAKE = 7
+                Game.charas.append(Chara((5, 5), CharaList.CHA_NO_WOMAN))
+                Game.field.QUAKE = 6
 
-    if Game.field.QUAKE == 7: 
+    if Game.field.QUAKE == 6: 
         if Game.field.map_no ==1:
             Game.charas = []
         if Game.field.map_no ==11:
@@ -274,17 +263,21 @@ def basic_draw():
                 Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
                 Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
                 Game.charas.append(Chara((5, 6), CharaList.CHA_NO_DAUGHTER))
-                Game.charas.append(Chara((12, 7), CharaList.CHA_NO_BOY))
-                Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((13, 6), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((5, 11), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((12, 8), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((7, 12), CharaList.CHA_NO_GIRL))
                 Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
-                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
-                Game.field.QUAKE = 8
+                Game.charas.append(Chara((12, 8), CharaList.CHA_NO_MAN))
+                Game.charas.append(Chara((7, 5), CharaList.CHA_NO_WOMAN))
+                Game.charas.append(Chara((6, 12), CharaList.CHA_NO_WOMAN))
                 
-                print(Game.field.QUAKE)            
-    if Game.field.QUAKE == 8: 
+                
+                Game.field.QUAKE = 7
+    if Game.field.QUAKE == 7: 
         if Game.field.map_no ==10:
             Game.charas = []
-        if Game.field.map_no ==11:
+        if Game.field.map_no ==8:
                 Player.selif_flg =2
                 for i in CharaList.CHARA_LIST:
                     if i == 0 or i == 1 or i == 2 or i == 3 or i == 4 or i== 5 or i== 6: 
@@ -292,16 +285,22 @@ def basic_draw():
                         i[5] = []
                         i[5] = [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,34,35,36,37,38,39,40, 41, 42, 43, 44, 45, 46, 47, 48, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
                 Game.charas = []
-                Game.charas.append(Chara((6, 6), CharaList.CHA_NO_FATHER))
-                Game.charas.append(Chara((6, 5), CharaList.CHA_NO_MOTHER))
-                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_DAUGHTER))
-                Game.charas.append(Chara((12, 7), CharaList.CHA_NO_BOY))
-                Game.charas.append(Chara((12, 6), CharaList.CHA_NO_GIRL))
-                Game.charas.append(Chara((5, 5), CharaList.CHA_NO_MAN))
-                Game.charas.append(Chara((5, 6), CharaList.CHA_NO_WOMAN))
-                Game.field.QUAKE = 8
+                Game.charas.append(Chara((5, 12), CharaList.CHA_NO_FATHER))
+                Game.charas.append(Chara((7, 12), CharaList.CHA_NO_MOTHER))
+                Game.charas.append(Chara((5, 10), CharaList.CHA_NO_DAUGHTER))
+                Game.charas.append(Chara((12, 12), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((12, 10), CharaList.CHA_NO_BOY))
+                Game.charas.append(Chara((8, 12), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((7, 10), CharaList.CHA_NO_GIRL))
+                Game.charas.append(Chara((6, 10), CharaList.CHA_NO_MAN))
+                Game.charas.append(Chara((13, 10), CharaList.CHA_NO_MAN))
+                Game.charas.append(Chara((7, 12), CharaList.CHA_NO_WOMAN))
+                Game.charas.append(Chara((6, 12), CharaList.CHA_NO_WOMAN))
                 
-                print(Game.field.QUAKE)              
+                
+                Game.field.QUAKE = 8            
+                   
+                
     for m_no,chara in enumerate(Game.charas):
        
         if Game.field.map_no ==  4:
@@ -330,7 +329,7 @@ def basic_draw():
     Game.player.draw()
     # Ｄ－５１Playerから）レベルの描画（左空白埋めで５桁）
     level_str = str(Game.player.level).rjust(5)
-    level_render = smallfont.render(f'Level:{level_str}',
+    level_render = smallfont.render(f'ゆたこあ',
                                     True, (255, 255, 255))
     Game.surface.blit(level_render, (1000, 30))
     # Ｄ－５２）HPの描画（左空白埋めで５桁）
@@ -431,19 +430,62 @@ def main():
         # ゲームオーバーの場合
         elif Game.phase == Phase.GAME_OVER:
             # 基本描画処理
-            basic_draw()
+            for _ in range(100):    
+
+                Game.field.draw() 
+                basic_draw()
             # ゲームオーバーメッセージの描画
             go_str = largefont.render('GAME OVER...',
                                         True, (255, 0, 0))
-            Game.surface.blit(go_str, (40, 300))
-            
+            Game.surface.blit(go_str, (200, 400))
+            if Player.end_flg == 0:
+                Game.surface.blit(selif_font.render("津波はふつうの波とちがい",
+                            True, (255, 255, 255)), (1000, 230))
+                Game.surface.blit(selif_font.render("力が強く家や車なども",
+                                True, (255, 255, 255)), (1000, 280))
+                Game.surface.blit(selif_font.render("流してしまいます。",
+                                                    True, (255, 255, 255)), (1000, 330))
+                Game.surface.blit(selif_font.render("地震が起きたら高いところに",
+                                                    True, (255, 255, 255)), (1000, 380))
+                Game.surface.blit(selif_font.render("避難しましょう。",
+                                                    True, (255, 255, 255)), (1000, 430))
+            elif Player.end_flg == 1:
+                Game.surface.blit(selif_font.render("地震で火災が起きたようです。",
+                            True, (255, 255, 255)), (1000, 230))
+                Game.surface.blit(selif_font.render("火が燃え移りそうなところに",
+                                True, (255, 255, 255)), (1000, 280))
+                Game.surface.blit(selif_font.render("ひなんするのは",
+                                                    True, (255, 255, 255)), (1000, 330))
+                Game.surface.blit(selif_font.render("さけましょう。",
+                                                    True, (255, 255, 255)), (1000, 380))
+                
+            elif Player.end_flg == 2:
+                Game.surface.blit(selif_font.render("地震のゆれで土砂崩れ",
+                            True, (255, 255, 255)), (1000, 230))
+                Game.surface.blit(selif_font.render("が起きたようです。",
+                                True, (255, 255, 255)), (1000, 280))
+                Game.surface.blit(selif_font.render("地震のときは、たおれたり",
+                                                    True, (255, 255, 255)), (1000, 330))
+                Game.surface.blit(selif_font.render("くずれたりするものが",
+                                                    True, (255, 255, 255)), (1000, 380))
+                Game.surface.blit(selif_font.render("ないか注意しましょう。",
+                                                    True, (255, 255, 255)), (1000, 430)) 
+            elif Player.end_flg == 3:            
+                Game.surface.blit(selif_font.render("地震で木がたおれたようです。",
+                            True, (255, 255, 255)), (1000, 230))
+                Game.surface.blit(selif_font.render("地震のときは、たおれたり",
+                                True, (255, 255, 255)), (1000, 280))
+                Game.surface.blit(selif_font.render("くずれたりするものが",
+                                                    True, (255, 255, 255)), (1000, 330))
+                Game.surface.blit(selif_font.render("ないか注意しましょう。",
+                                                    True, (255, 255, 255)), (1000, 380))   
         elif Game.phase == Phase.GAME_CLEAR:
             # 基本描画処理
             basic_draw()
             # ゲームオーバーメッセージの描画
-            go_str = largefont.render('GAME CLEAR',
+            go_str = largefont.render('CLEAR',
                                         True, (0, 0, 0))
-            Game.surface.blit(go_str, (40, 300))
+            Game.surface.blit(go_str, (300, 400))
 
         pygame.display.update()     # 描画更新処理
         clock.tick(25)              # 一定時間処理

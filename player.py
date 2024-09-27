@@ -20,7 +20,7 @@ selif_font = pygame.font.Font('C:/Windows/Fonts/meiryo.ttc', 24)
 # プレイヤークラス
 class Player(Character):
     # 移動不能チップの番号リスト（チップの番号と合わせること）
-    UNMOVABLE_CHIP_LIST = [1, 7, 10,12, 14, 4, 18, 19, 20, 21, 22, 23, 25,29, 30, 31, 32, 33, 40, 41, 42, 43,45,47,48,52,54,57,58,65,67,65,66,67,68,70,71,72,73,80,81,82,83,90,91,92,93,94,100,101,102,103,104,105,106,107,110,111,112,113,114,115,116,117,127,128,129,138,140,141,144,149,150,151,156]
+    UNMOVABLE_CHIP_LIST = [1, 7, 10,12, 14, 4, 18, 19, 20, 21, 22, 23, 25,29, 30, 31, 32, 33, 40, 41, 42, 43,47,48,52,54,57,58,65,67,65,66,67,68,70,71,72,73,80,81,82,83,90,91,92,93,94,100,101,102,103,104,105,106,107,110,111,112,113,114,115,116,117,127,128,129,138,140,141,144,149,150,151,156]
    
     FIELD_DAMEGE_LIST = [3,55,56]
     SLOW_LIST = [3]
@@ -44,7 +44,7 @@ class Player(Character):
     PLAYER_LV_1ST = 1
     # 初期ヒットポイント
     if PLAYER_LV_1ST == 1:
-        PLAYER_HP_1ST = 130
+        PLAYER_HP_1ST = 13
     else:
         PLAYER_HP_1ST = 10
     
@@ -85,7 +85,11 @@ class Player(Character):
     selif_flg = 0  # セリフフラグの初期化
     selif_num =0
     enter_key_pressed = False  # エンターキー押下状態のフラグ
-
+    start_time_esc = 0
+    end_time_esc = 0
+    delay_time = 0
+    time_flg = 0
+    end_flg = 0
     # コンストラクタ
     def __init__(self):
         super().__init__()
@@ -155,16 +159,15 @@ class Player(Character):
 
         if Game.on_downkey():
             dy += Character.MOVE_STEP*0.5
-            self.doku_flg += 1
+            
         elif Game.on_upkey():
             dy -= Character.MOVE_STEP*0.5
-            self.doku_flg += 1
+            
         elif Game.on_rightkey():
             dx += Character.MOVE_STEP*0.5
-            self.doku_flg += 1
+            
         elif Game.on_leftkey():
-            dx -= Character.MOVE_STEP*0.5
-            self.doku_flg += 1
+            dx -= Character.MOVE_STEP*0.5   
 
         posx, posy, dx, dy = self.calc_chara_pos(posx, posy, dx, dy)
         posx, posy, dx, dy, is_changed = self.check_map_move(posx, posy, dx, dy)
@@ -176,7 +179,8 @@ class Player(Character):
                 self.set_pos(posx, posy)
                 self.set_dpos(dx, dy)
             if not self.check_chara_move_damege(posx, posy, dx, dy, Player.FIELD_DAMEGE_LIST):
-                if self.doku_flg > 10:
+                self.doku_flg += 1
+                if self.doku_flg > 30:
                     se = pygame.mixer.Sound("doku.mp3")
                     se.play()
                     self.hp -= 1
@@ -555,6 +559,8 @@ class Player(Character):
                                                     field.Field.MAP_LIST[i][j][k] = 56
                                                 if field.Field.MAP_LIST[i][j][k] == 50:
                                                     field.Field.MAP_LIST[i][j][k] = 56 
+                                                if field.Field.MAP_LIST[i][j][k] == 157:
+                                                    field.Field.MAP_LIST[i][j][k] = 158     
                                                 if field.Field.MAP_LIST[i][j][k] == 51:
                                                     field.Field.MAP_LIST[i][j][k] = 56   
                                                 if field.Field.MAP_LIST[i][j][k] == 47:
@@ -588,16 +594,27 @@ class Player(Character):
                                 Game.field.read_map_info()
                                 Game.field.draw()  
                                 pygame.display.update()
-                                
-            if 24 <= Player.end_time - Player.start_time < 90:
+                     
+            if Player.MAP2_flg == 1:
+                Player.start_time_esc = time.time()
+                Player.MAP2_flg = 0
+                Player.delay_time = -10000
+
+            if  1 <= Game.player.map1_flg <=100:
+                if Player.time_flg == 0:
+                    Player.end_time_esc = time.time()
+                    Player.delay_time = Player.end_time_esc - Player.start_time_esc
+                    Player.time_flg = 0
+                    
+                    print(Player.delay_time)
+            if 24 <= Player.end_time - Player.delay_time - Player.start_time < 90:
                 if Player.TSUNAMI_flg == 0 :    
                                 for i in range(13):
                                     # 2,3,4,5,6,9,12
                                     if i in [1,2,10]:
                                         for j in range(14):
-                                            if 24 + (j + i * 1.5) * 2 <= Player.end_time - Player.start_time <= 25 + (j + i * 1.5) * 2:
+                                            if 24 + (j + i * 1.5) * 2 <= Player.end_time - Player.delay_time - Player.start_time <= 25 + (j + i * 1.5) * 2:
                                                 j = 13-j
-                                                print(j)
                                                 for k in range(15):
                                                     
                                                     if field.Field.MAP_LIST[i][j][k] in [14,1]:
@@ -623,10 +640,12 @@ class Player(Character):
                                                         field.Field.MAP_LIST[i][j][k] = 56   
                                                     if field.Field.MAP_LIST[i][j][k] == 47:
                                                         field.Field.MAP_LIST[i][j][k] = 54
-                                                    if field.Field.MAP_LIST[i][j][k] in [17,85,99] :
+                                                    if field.Field.MAP_LIST[i][j][k] in [17,85] :
                                                         field.Field.MAP_LIST[i][j][k] = 55
                                                     if field.Field.MAP_LIST[i][j][k] == 75:
                                                         field.Field.MAP_LIST[i][j][k] = 55    
+                                                    if field.Field.MAP_LIST[i][j][k] == 99:
+                                                        field.Field.MAP_LIST[i][j][k] = 158    
                                                     if i == 2: 
                                                         if field.Field.MAP_LIST[i][j][k] == 10:
                                                             field.Field.MAP_LIST[i][j][k] = 52
@@ -659,13 +678,13 @@ class Player(Character):
                                                 Game.field.draw()  
                                                 pygame.display.update()
                                                 
-            if Player.TSUNAMI_flg == 0 :    
+                if Player.TSUNAMI_flg == 0 :    
                             for i in range(13):
                                 # 2,3,4,5,6,9,12
                                 if i in [11]:
                                     for k in range(1,16):
                                         
-                                        if 24 + (k + i * 1.5) * 2 <= Player.end_time - Player.start_time <= 25 + (k + i * 1.5) * 2:
+                                        if 24 + (k + i * 1.5) * 2 <= Player.end_time - Player.delay_time - Player.start_time<= 25 + (k + i * 1.5) * 2:
                                             for j in range(k):
                                                 for l in range(14):
                                                     if field.Field.MAP_LIST[i][l][14 - j] in [14,1]:
@@ -681,6 +700,8 @@ class Player(Character):
                                                             field.Field.MAP_LIST[i][l][14 - j] = 3
                                                     if field.Field.MAP_LIST[i][l][14 - j] == 53:
                                                         field.Field.MAP_LIST[i][l][14 - j] = 3
+                                                    if field.Field.MAP_LIST[i][l][14 - j] == 159:
+                                                        field.Field.MAP_LIST[i][l][14 - j] = 143
                                                     if field.Field.MAP_LIST[i][l][14 - j] == 12:
                                                         field.Field.MAP_LIST[i][l][14 - j] = 54
                                                     if field.Field.MAP_LIST[i][l][14 - j] == 49:
@@ -988,7 +1009,7 @@ class Player(Character):
                                                                 field.Field.MAP_LIST[i][j - 1][12 + k] = 56   
                                                             if field.Field.MAP_LIST[i][j - 1][12 + k] == 47:
                                                                 field.Field.MAP_LIST[i][j - 1][12 + k] = 54
-                                                            if field.Field.MAP_LIST[i][j - 1][12 + k] in [17,85,99] :
+                                                            if field.Field.MAP_LIST[i][j - 1][12 + k] in [17,85] :
                                                                 field.Field.MAP_LIST[i][j - 1][12 + k] = 55
                                                             if field.Field.MAP_LIST[i][j - 1][12 + k] == 75:
                                                                 field.Field.MAP_LIST[i][j - 1][12 + k] = 55    
@@ -1211,13 +1232,16 @@ class Player(Character):
             #             Game.field.draw()  
             #             pygame.display.update()
             if Game.field.QUAKE == 4: 
-                if    field.Field.MAP2[9][8] == 74:
+                if    field.Field.MAP2[6][8] == 74:
                     Game.surface.blit(selif_font.render("お兄さん",
                                         True, (255, 255, 255)), (1000, 230))
                     Game.surface.blit(selif_font.render("火事が少しずつ大きくなってないか？",
                                         True, (255, 255, 255)), (1000, 280))
-                    
-                if   field.Field.MAP2[9][8] == 94:
+                    Game.surface.blit(selif_font.render("お父さん",
+                                                             True, (255, 255, 255)), (1000, 330))
+                    Game.surface.blit(selif_font.render("火事だー早く逃げるぞー",
+                                                            True, (255, 255, 255)), (1000, 380))
+                if   field.Field.MAP2[6][8] == 94:
                                 Game.surface.blit(selif_font.render("お父さん",
                                                                         True, (255, 255, 255)), (1000, 230))
                                 Game.surface.blit(selif_font.render("火事だー早く逃げるぞー",
@@ -1232,23 +1256,46 @@ class Player(Character):
                         
                         field.Field.MAP_LIST[Game.field.map_no][posy][posx] = 66
                         field.Field.MAP_LIST[Game.field.map_no][posy][posx-1] = 65
-                        Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]             
-                        Game.field.read_map_info
+                        Game.field.new_field = field.Field.MAP_LIST[i]
+                        Game.field.read_map_info()
                         Game.field.draw()  
-                        self.hp -= 5
+                        pygame.display.update() 
+                        self.hp -= 20
                         Player.TOUBOKU_flg = 1
                         Player.start_time_QUAKE = time.time()
+                        if self.hp <= 0:
+                            Player.end_flg =3
+                            Game.on_enterkey() or Game.on_spacekey()
+                            self.hp = 0 
+                            Game.phase = Phase.GAME_OVER
+                            pygame.mixer.init()
+                            pygame.mixer.music.load('game_over.mp3')
+                            pygame.mixer.music.play(-1)
+                    
             if not self.check_chara_move(posx, posy, dx, dy, Player.TOUBOKU_LIST_L): 
                 if Player.TSUNAMI_flg == 0:    
                     if field.Field.MAP_LIST[Game.field.map_no][posy][posx] == 35:  #右
                         field.Field.MAP_LIST[Game.field.map_no][posy][posx] = 68
                         field.Field.MAP_LIST[Game.field.map_no][posy][posx+1] = 67
-                        Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]             
-                        Game.field.read_map_info
+                        
+                        Game.field.new_field = field.Field.MAP_LIST[i]
+                        Game.field.read_map_info()
                         Game.field.draw()  
-                        self.hp -= 5 
+                        pygame.display.update() 
+                        self.hp -= 20
                         Player.TOUBOKU_flg = 1
                         Player.start_time_QUAKE = time.time()
+                        if self.hp <= 0:
+                            Player.end_flg =3
+                            Game.on_enterkey() or Game.on_spacekey()
+                            self.hp = 0
+                            Game.phase = Phase.GAME_OVER
+                            pygame.mixer.init()
+                            pygame.mixer.music.load('game_over.mp3')
+                            pygame.mixer.music.play(-1)
+                    
+                        
+                        
             if Player.TOUBOKU_flg ==1:
                 Player.end_time_QUAKE = time.time()
                 if 0 <=Player.end_time_QUAKE - Player.start_time_QUAKE <=3:
@@ -1288,12 +1335,23 @@ class Player(Character):
                     field.Field.MAP_LIST[9][7][1] = 150    
                     field.Field.MAP_LIST[9][7][2] = 150
                     field.Field.MAP_LIST[9][7][3] = 150
-                    Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]             
-                    Game.field.read_map_info
+                    Game.field.new_field = field.Field.MAP_LIST[i]
+                    Game.field.read_map_info()
                     Game.field.draw()  
-                    self.hp -= 5 
+                    pygame.display.update() 
+                    self.hp -= 20
                     Player.TOUBOKU_flg = 1
                     Player.start_time_QUAKE = time.time()
+                    if self.hp <= 0:
+                        Player.end_flg =2
+                        Game.on_enterkey() or Game.on_spacekey()
+                        self.hp = 0
+                        Game.phase = Phase.GAME_OVER
+                        pygame.mixer.init()
+                        pygame.mixer.music.load('game_over.mp3')
+                        pygame.mixer.music.play(-1) 
+                
+                    
             if not self.check_chara_move(posx, posy, dx, dy, [153,155]): 
                 
                 if field.Field.MAP_LIST[9][9][0] == 144:  
@@ -1322,13 +1380,23 @@ class Player(Character):
                     field.Field.MAP_LIST[9][7][1] = 150    
                     field.Field.MAP_LIST[9][7][2] = 150
                     field.Field.MAP_LIST[9][7][3] = 150
-                    Game.field.new_field = field.Field.MAP_LIST[Game.field.map_no]             
-                    Game.field.read_map_info
+                    Game.field.new_field = field.Field.MAP_LIST[i]
+                    Game.field.read_map_info()
                     Game.field.draw()  
-                    self.hp -= 5 
+                    pygame.display.update() 
+                    self.hp -= 20
                     Player.TOUBOKU_flg = 1
                     Player.start_time_QUAKE = time.time()
-
+                    if self.hp <= 0:
+                        Player.end_flg =2
+                        Game.on_enterkey() or Game.on_spacekey()
+                        self.hp = 0
+                        Game.phase = Phase.GAME_OVER
+                        pygame.mixer.init()
+                        pygame.mixer.music.load('game_over.mp3')
+                        pygame.mixer.music.play(-1)
+                
+                    
             if Player.kagi_flg == 1:
                 if not self.check_chara_move(posx, posy, dx, dy, Player.DOOR_LIST):
                     field.Field.MAP8[4][1] = 0
@@ -1369,6 +1437,17 @@ class Player(Character):
                                 if Player.fire_flg == 15:
                                     self.hp -= 1
                                     Player.fire_flg = 0 
+                                    if self.hp <= 0:
+                                        Player.end_flg =1
+                                        Game.on_enterkey() or Game.on_spacekey()
+                                        self.hp = 0
+                                        Game.phase = Phase.GAME_OVER
+                                        pygame.mixer.init()
+                                        pygame.mixer.music.load('game_over.mp3')
+                                        pygame.mixer.music.play(-1)
+                                    
+                                    
+                                    
                                      
                         Game.surface.blit(selif_font.render(cha.name,
                                                                 True, (255, 255, 255)), (1000, 230))
